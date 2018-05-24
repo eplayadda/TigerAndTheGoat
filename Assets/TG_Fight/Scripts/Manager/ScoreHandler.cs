@@ -39,7 +39,7 @@ public class ScoreHandler : MonoBehaviour
 		WWW www = new WWW (str);
 		yield return www;
 		if (string.IsNullOrEmpty (www.error)) {
-			string strng = www.data [2].ToString ();
+			string strng = www.text [2].ToString ();
 			if (strng == "0") {
 				Application.Quit ();
 			}
