@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
 	void Start ()
 	{
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
-		StartCoroutine (GameAllow ());
+		GameAllow ();
 	}
 
 	public void TutorialAllow ()
@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 	public bool isAllowPlay = true;
-	IEnumerator GameAllow ()
+	void GameAllow ()
 	{
 		if (PlayerPrefs.GetInt ("Tutorials") == 1) {
 			_toggle.isOn = true;
@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
 			_toggle.isOn = false;
 			showTutorial = false;
 		}
+        /*
 		WWW www = new WWW ("http://www.eplayadda.com/datacheck/api/values");
 		yield return www;
 		if (string.IsNullOrEmpty (www.error)) {
@@ -117,7 +118,7 @@ public class GameManager : MonoBehaviour
 				isAllowPlay = false;
 				Application.Quit ();
 			}
-		}
+		}*/
 	
 	}
 
