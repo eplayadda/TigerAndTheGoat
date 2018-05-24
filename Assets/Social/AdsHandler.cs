@@ -37,16 +37,16 @@ public class AdsHandler : MonoBehaviour
 	{
 		#if UNITY_EDITOR
 		adUnitId = "unused";
-		#elif UNITY_ANDROID
-		adUnitId = "ca-app-pub-8278120811341322/9571915451";
+#elif UNITY_ANDROID
+		adUnitId = "ca-app-pub-1224519388650129/3670556784";
 
-		#elif UNITY_IPHONE
+#elif UNITY_IPHONE
 		adUnitId = "INSERT_IOS_BANNER_AD_UNIT_ID_HERE";
 
-		#else
+#else
 		adUnitId = "unexpected_platform";
-		#endif
-		bannerViewMenuPage = new BannerView (adUnitId, AdSize.Banner, AdPosition.Bottom);
+#endif
+        bannerViewMenuPage = new BannerView (adUnitId, AdSize.Banner, AdPosition.Bottom);
 		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
 		//AdRequest request = new AdRequest.Builder ().Build ();
 		// Load the banner with the request.
@@ -57,16 +57,16 @@ public class AdsHandler : MonoBehaviour
 	{
 		#if UNITY_EDITOR
 		adUnitId = "unused";
-		#elif UNITY_ANDROID
-		adUnitId = "ca-app-pub-8278120811341322/7373536644";
+#elif UNITY_ANDROID
+		adUnitId = "ca-app-pub-1224519388650129/1133035115";
 
-		#elif UNITY_IPHONE
+#elif UNITY_IPHONE
 		adUnitId = "INSERT_IOS_BANNER_AD_UNIT_ID_HERE";
 
-		#else
+#else
 		adUnitId = "unexpected_platform";
-		#endif
-		bannerViewPausePage = new BannerView (adUnitId, AdSize.Banner, AdPosition.Bottom);
+#endif
+        bannerViewPausePage = new BannerView (adUnitId, AdSize.Banner, AdPosition.Bottom);
 		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
 		//AdRequest request = new AdRequest.Builder ().Build ();
 		// Load the banner with the request.
@@ -77,16 +77,16 @@ public class AdsHandler : MonoBehaviour
 	{
 		#if UNITY_EDITOR
 		adUnitId = "unused";
-		#elif UNITY_ANDROID
-		adUnitId = "ca-app-pub-1064698863475177/1158101173";
+#elif UNITY_ANDROID
+		adUnitId = "ca-app-pub-1224519388650129/3567626769";
 
-		#elif UNITY_IPHONE
+#elif UNITY_IPHONE
 		adUnitId = "INSERT_IOS_BANNER_AD_UNIT_ID_HERE";
 
-		#else
+#else
 		adUnitId = "unexpected_platform";
-		#endif
-		interstitial = new InterstitialAd (adUnitId);
+#endif
+        interstitial = new InterstitialAd (adUnitId);
 //		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
 		AdRequest request = new AdRequest.Builder ().Build ();
 		// Load the interstitial with the request.
@@ -97,16 +97,16 @@ public class AdsHandler : MonoBehaviour
 	{
 		#if UNITY_EDITOR
 		adUnitId = "unused";
-		#elif UNITY_ANDROID
-		adUnitId = "ca-app-pub-1064698863475177/8569332113";
+#elif UNITY_ANDROID
+		adUnitId = "ca-app-pub-1224519388650129/8867043142";
 
-		#elif UNITY_IPHONE
+#elif UNITY_IPHONE
 		adUnitId = "INSERT_IOS_BANNER_AD_UNIT_ID_HERE";
 
-		#else
+#else
 		adUnitId = "unexpected_platform";
-		#endif
-		rewardVideoAds = RewardBasedVideoAd.Instance;
+#endif
+        rewardVideoAds = RewardBasedVideoAd.Instance;
 //		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
 		AdRequest request = new AdRequest.Builder ().Build ();
 		rewardVideoAds.LoadAd (request, adUnitId);

@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
 		WWW www = new WWW ("http://www.eplayadda.com/datacheck/api/values");
 		yield return www;
 		if (string.IsNullOrEmpty (www.error)) {
-			string str = www.data [2].ToString ();
+			string str = www.text [2].ToString ();
 			if (str == "0") {
 				isAllowPlay = false;
 				Application.Quit ();
