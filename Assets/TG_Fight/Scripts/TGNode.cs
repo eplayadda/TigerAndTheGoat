@@ -29,13 +29,17 @@ public class TGNode : MonoBehaviour
 		if (currNodeHolder == eNodeHolder.goat) {
 			nodeHolderSprint.sprite = BordManager.instace.goatTexture;
 			nodeHolderSprint.enabled = true;
+            nodeHolderSprint.transform.localScale = new Vector3(1.2f,1.2f,1.2f);
 		} else if (currNodeHolder == eNodeHolder.tiger) {
 			nodeHolderSprint.enabled = true;
 			nodeHolderSprint.sprite = BordManager.instace.tigerTexture;
-		} else {
+            nodeHolderSprint.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else {
 			nodeHolderSprint.enabled = false;
-		}
-	}
+            nodeHolderSprint.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+    }
 }
 
 [System.Serializable]
