@@ -146,7 +146,8 @@ public class ConnectionManager : MonoBehaviour
 	{
 		signalRConnection.Open ();
 		while (true) {
-			yield return new WaitForSeconds (10f);
+			yield return new WaitForSeconds (1f);
+                    Debug.Log("Open COnnection"+signalRConnection.State);
 			try {
 				if (signalRConnection.State == ConnectionStates.Closed) {
 					signalRConnection.Open ();
@@ -264,8 +265,17 @@ public class ConnectionManager : MonoBehaviour
 		inputData.Add (1 + "");
 		signalRConnection [HUB_NAME].Call ("InPutTaken", inputData);
 	}
+    void DataRecivedACK()
+    {
+        inputData.Clear();
+        inputData.Add(friedID);
+        inputData.Add("");
+        inputData.Add(2 + "");
+        signalRConnection[HUB_NAME].Call("InPutTaken", inputData);
+    }
 
-	public void OnInputRecived (Hub hub, MethodCallMessage msg)
+
+    public void OnInputRecived (Hub hub, MethodCallMessage msg)
 	{
 		var str = msg.Arguments [0] as object[];
 		Debug.Log (str [2].ToString ());
@@ -275,13 +285,16 @@ public class ConnectionManager : MonoBehaviour
 			if (GameManager.instance.currGameStatus == eGameStatus.play) {
 				int a = Convert.ToInt32 (str [1].ToString ());
 				InputHandler.instance.OnInputTakenBYServer (a);
-				Debug.Log (a + " ");
+                DataRecivedACK();
+
+                Debug.Log (a + " ");
 			}
 
 		} else if (str [2].ToString () == "1") {
 			//int a = Convert.ToInt32(str[1]);
 			UIManager.instance.FriendGameOver ();
 		} else if (str [2].ToString () == "2") {
+            InputHandler.instance.AcknowledgementByServer();
 		} else if (str [2].ToString () == "3") {
 //			if (GameManager.instace.currRoomStatus != GameManager.eRoomStatus.play) {
 			UIManager.instance.OnGameStartOnServer ();
