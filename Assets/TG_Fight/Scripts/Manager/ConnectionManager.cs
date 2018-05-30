@@ -194,6 +194,14 @@ public class ConnectionManager : MonoBehaviour
 
 	}
 
+    public void SendMsg(string str)
+    {
+        inputData.Clear();
+        inputData.Add(friedID);
+        inputData.Add(str);
+        inputData.Add(4 + "");
+        signalRConnection[HUB_NAME].Call("InPutTaken", inputData);
+    }
 	// Request Came
 	public void OnReceiveMatchDetails (Hub hub, MethodCallMessage msg)
 	{
@@ -286,22 +294,22 @@ public class ConnectionManager : MonoBehaviour
 				int a = Convert.ToInt32 (str [1].ToString ());
 				InputHandler.instance.OnInputTakenBYServer (a);
                 DataRecivedACK();
-
                 Debug.Log (a + " ");
 			}
-
 		} else if (str [2].ToString () == "1") {
 			//int a = Convert.ToInt32(str[1]);
 			UIManager.instance.FriendGameOver ();
 		} else if (str [2].ToString () == "2") {
             InputHandler.instance.AcknowledgementByServer();
 		} else if (str [2].ToString () == "3") {
-//			if (GameManager.instace.currRoomStatus != GameManager.eRoomStatus.play) {
 			UIManager.instance.OnGameStartOnServer ();
-//				Debug.Log ("3333");
 		}
+        else if (str[2].ToString() == "4")
+        {
+            MsgBox.instance.ShowMsg(str[1].ToString());
+        }
 
-	}
+    }
 
 	public void Ack (Hub hub, MethodCallMessage msg)
 	{

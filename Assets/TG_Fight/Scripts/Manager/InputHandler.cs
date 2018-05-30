@@ -45,6 +45,7 @@ public class InputHandler : MonoBehaviour {
 
     public void AcknowledgementByServer()
     {
+        if(myCurrTurnInput.Count >0)
         myCurrTurnInput.Dequeue();
         Debug.Log("AcknowledgementByServer" + myCurrTurnInput.Count);
 
