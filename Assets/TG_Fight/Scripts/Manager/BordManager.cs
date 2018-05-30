@@ -33,8 +33,9 @@ public class BordManager : MonoBehaviour
 	Transform endPos;
 	float speed = 20f;
 	public eTurnStatus lstGameTurn;
-
-	void Awake ()
+    public Timmer tigerTimmer;
+    public Timmer goatTimmer;
+    void Awake ()
 	{
 		if (instace == null)
 			instace = this;
@@ -129,13 +130,13 @@ public class BordManager : MonoBehaviour
 //						speed = Vector3.Distance (markerToMove.position,endPos.position) / 5f;
 						markerToMove.gameObject.SetActive (true);
 						if (gameManager.currTurnStatus == eTurnStatus.friend) {
+							gameManager.currTurnStatus = eTurnStatus.my;
 							TurnMsg (true);
 //							turnMsg.text = "You";
-							gameManager.currTurnStatus = eTurnStatus.my;
 						} else {
+							gameManager.currTurnStatus = eTurnStatus.friend;
 							TurnMsg (false);
 							turnMsg.text = "Friend";
-							gameManager.currTurnStatus = eTurnStatus.friend;
 						}
 
 						if (IsAiEnable (true))
@@ -156,12 +157,12 @@ public class BordManager : MonoBehaviour
 //                allTgNodes[pData].SetNodeHolderSprint();
 				if (gameManager.currTurnStatus == eTurnStatus.friend) {
 //					turnMsg.text = "You";
-					TurnMsg (true);
 					gameManager.currTurnStatus = eTurnStatus.my;
+					TurnMsg (true);
 				} else {
 //					turnMsg.text = "Friend";
-					TurnMsg (false);
 					gameManager.currTurnStatus = eTurnStatus.friend;
+					TurnMsg (false);
 				}
 				if (IsAiEnable (true))
 					StartCoroutine ("AITurnTiger");
@@ -193,12 +194,12 @@ public class BordManager : MonoBehaviour
 //					speed = Vector3.Distance (markerToMove.position,endPos.position) / 5f;
 					if (gameManager.currTurnStatus == eTurnStatus.friend) {
 //						turnMsg.text = "You";
-						TurnMsg (true);
 						gameManager.currTurnStatus = eTurnStatus.my;
+						TurnMsg (true);
 					} else {
+						gameManager.currTurnStatus = eTurnStatus.friend;
 						TurnMsg (false);
 //						turnMsg.text = "Friend";
-						gameManager.currTurnStatus = eTurnStatus.friend;
 					}
 					if (IsAiEnable (false))
 						StartCoroutine ("AITurnGoat");
@@ -332,34 +333,104 @@ public class BordManager : MonoBehaviour
 		}
 		return isAbvl;
 	}
+    public void TimeUPStartAI()
+    {
+        if (gameManager.currTurnStatus == eTurnStatus.my)
+        {
+            if (gameManager.myAnimalType == eAnimalType.tiger)
+                StartCoroutine("AITurnTiger");
+            else
+                StartCoroutine("AITurnGoat");
+        }
+        else
+        {
+            if (gameManager.friendAnimalType == eAnimalType.tiger)
+                StartCoroutine("AITurnTiger");
+             else
+                StartCoroutine("AITurnGoat");
+
+        }
+    }
 
 	void TurnMsg (bool isMe)
 	{
 		switch (gameManager.currGameMode) {
 		case eGameMode.vCPU:
 			{
-				if (!isMe)
-					turnMsg.text = "CPU";
-				else
-					turnMsg.text = "You";
+                    if (!isMe)
+                    {
+                        StartTimmer();
+                        turnMsg.text = "CPU";
+                    }
+                    else
+                    {
+                        StartTimmer();
+                        turnMsg.text = "You";
+                        Handheld.Vibrate();
+                    }
 			}
 			break;
 		case eGameMode.vLocalMulltiPlayer:
 			{
-				if (!isMe)
-					turnMsg.text = "Player 2";
+                    if (!isMe)
+                    {
+                        StartTimmer();
+                        turnMsg.text = "Player 2";
+                    }
 				else
-					turnMsg.text = "Player 1";
+                    {
+                        StartTimmer();
+					    turnMsg.text = "Player 1";
+                    }
 			}
 			break;
 		case eGameMode.vServerMulltiPlayer:
 			{
-				if (!isMe)
-					turnMsg.text = "Friend";
-				else
-					turnMsg.text = "You";
-			}
+                    if (!isMe)
+                    {
+                        StartTimmer();
+                        turnMsg.text = "Friend";
+                    }
+                    else
+                    {
+                        StartTimmer();
+
+                        turnMsg.text = "You";
+                        Handheld.Vibrate();
+
+                    }
+                }
 			break;
 		}
 	}
+
+    void StartTimmer()
+    {
+        tigerTimmer.Stop();
+        goatTimmer.Stop();
+        Debug.Log(gameManager.currTurnStatus+"???????????"+ gameManager.friendAnimalType);
+        if (gameManager.currTurnStatus == eTurnStatus.my)
+        {
+            if (gameManager.myAnimalType == eAnimalType.tiger)
+            {
+                tigerTimmer.ResetTimmer();
+            }
+            else
+            {
+                goatTimmer.ResetTimmer();
+            }
+        }
+        else {
+            if (gameManager.friendAnimalType == eAnimalType.tiger)
+            {
+                tigerTimmer.ResetTimmer();
+            }
+            else
+            {
+                goatTimmer.ResetTimmer();
+            }
+
+
+        }
+    }
 }
