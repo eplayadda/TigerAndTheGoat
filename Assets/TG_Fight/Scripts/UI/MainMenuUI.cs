@@ -103,7 +103,7 @@ public class MainMenuUI : MonoBehaviour
 			}
 		}
 		if (a < 3) {
-			gameManager.currGameStatus = eGameStatus.play;
+			//gameManager.currGameStatus = eGameStatus.play;
 			//GameManager.instance.showTutorial = true;
 			UIManager.instance.DisplayTutorial ();
 			uiManager.DisableAllUI ();

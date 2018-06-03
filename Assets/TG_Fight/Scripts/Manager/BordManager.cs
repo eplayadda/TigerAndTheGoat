@@ -45,7 +45,8 @@ public class BordManager : MonoBehaviour
 	{
 		gameManager = GameManager.instance;
 		ResetData ();
-		SetDefaultData ();
+        //if(gameManager.currGameMode != eGameMode.vServerMulltiPlayer)
+		    SetDefaultData ();
 		if (IsAiEnable (false))
 			StartCoroutine ("AITurnGoat");
 	}
@@ -70,7 +71,7 @@ public class BordManager : MonoBehaviour
 		StopCoroutine ("AITurnGoat");
 	}
 
-	void SetDefaultData ()
+	 public void SetDefaultData ()
 	{
 		allTgNodes [0].currNodeHolder = eNodeHolder.tiger;
 		allTgNodes [3].currNodeHolder = eNodeHolder.tiger;
@@ -231,10 +232,12 @@ public class BordManager : MonoBehaviour
 		List <int> aiMOve = new List<int> ();
 		aiMOve = Tg_FightAI.instance.GetTigerNextMove ();
 		if (aiMOve [0] >= 0) {
-			OnInputByUser (aiMOve [0]);
-			yield return new WaitForSeconds (.5f);
-			OnInputByUser (aiMOve [1]);
-		} else {
+           // OnInputByUser (aiMOve [0]);
+           InputHandler.instance.OnInputByAI(aiMOve[0]);
+            yield return new WaitForSeconds (.5f);
+            //OnInputByUser (aiMOve [1]);
+            InputHandler.instance.OnInputByAI(aiMOve[1]);
+        } else {
 			currWinStatus = eWinStatus.goat;
 			UIManager.instance.OnGameOver ();
 		}
@@ -246,13 +249,16 @@ public class BordManager : MonoBehaviour
 		List <int> aiMOve = new List<int> ();
 		aiMOve = Tg_FightAI.instance.GetGoatNextMove ();
 		if (noOfGoat < gameManager.totalNoOfGoat) {
-			OnInputByUser (aiMOve [0]);
+           // OnInputByUser (aiMOve [0]);
+            InputHandler.instance.OnInputByAI(aiMOve[0]);
 		} else {
 			Debug.Log (aiMOve [1] + " " + aiMOve [0]);
-			OnInputByUser (aiMOve [1]);
-			yield return new WaitForSeconds (.5f);
-			OnInputByUser (aiMOve [0]);
-		}
+          //  OnInputByUser (aiMOve [1]);
+            InputHandler.instance.OnInputByAI(aiMOve[1]);
+            yield return new WaitForSeconds (.5f);
+			//OnInputByUser (aiMOve [0]);
+            InputHandler.instance.OnInputByAI(aiMOve[0]);
+        }
 
 	}
 
@@ -303,7 +309,7 @@ public class BordManager : MonoBehaviour
 					coutGoatKill++;
 					goatKillTxt.text = coutGoatKill.ToString ();
 					AudioManager.Instance.PlaySound (AudioManager.SoundType.LevelComplete);
-					if (coutGoatKill >= 6) {
+					if (coutGoatKill >= 5) {
 						currWinStatus = eWinStatus.tiger;
 						UIManager.instance.OnGameOver ();
 					}
@@ -344,6 +350,8 @@ public class BordManager : MonoBehaviour
         }
         else
         {
+            if (gameManager.currGameMode == eGameMode.vServerMulltiPlayer)
+                return;
             if (gameManager.friendAnimalType == eAnimalType.tiger)
                 StartCoroutine("AITurnTiger");
              else
@@ -393,8 +401,7 @@ public class BordManager : MonoBehaviour
                     }
                     else
                     {
-                        StartTimmer();
-
+                       StartTimmer();
                         turnMsg.text = "You";
                         Handheld.Vibrate();
 

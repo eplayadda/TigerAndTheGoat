@@ -51,7 +51,7 @@ public class GamePlayUI : MonoBehaviour
 		if (a == 1) {
 			waittingPanelBtn.interactable = true;
 			waittingMsgPnl.SetActive (false);
-			gameManager.currGameStatus = eGameStatus.play;
+			//gameManager.currGameStatus = eGameStatus.play;
 		} else {
 			Debug.Log ("Not accpetd");
 			UIManager.instance.OnDicliend ();
@@ -69,6 +69,7 @@ public class GamePlayUI : MonoBehaviour
 
 	public void OnServerGameStart ()
 	{
+       // BordManager.instace.SetDefaultData();
 		waitingPanel.SetActive (false);
 		gameManager.currGameStatus = eGameStatus.play;
 	}

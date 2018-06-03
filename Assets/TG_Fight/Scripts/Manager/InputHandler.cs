@@ -30,6 +30,18 @@ public class InputHandler : MonoBehaviour {
             StartCoroutine("WaitAndSendData");
         }
 	}
+
+    public void OnInputByAI(int pData)
+    {
+        BordManager.instace.OnInputByUser(pData);
+        if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer)
+        {
+            Debug.Log("Input By User " + pData);
+            myCurrTurnInput.Enqueue(pData);
+            ConnectionManager.Instance.OnSendMeAnswer(pData + "");
+            StartCoroutine("WaitAndSendData");
+        }
+    }
 	public void OnInputTakenBYServer(int pData)
 	{
 		if (!GameManager.instance.isAllowPlay)

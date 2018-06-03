@@ -25,7 +25,7 @@ public class InviteUI : MonoBehaviour
 		SocialManager.Instance.isFriendsSelected = false;
 		UIManager.instance.mainMenuUI.selectFriendPopup.text = "";
 		if (isAccepted) {
-			GameManager.instance.currGameStatus = eGameStatus.play;
+			//GameManager.instance.currGameStatus = eGameStatus.play;
 			GameManager.instance.currGameMode = eGameMode.vServerMulltiPlayer;
 			GameManager.instance.currPlayerIdentity = ePlayerIdentity.client;
 			GameManager.instance.myAnimalType = (eAnimalType)friendAnimalType;

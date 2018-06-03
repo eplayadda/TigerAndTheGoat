@@ -26,10 +26,13 @@ public class Timmer : MonoBehaviour {
 	void Update () {
         if (isStart)
         {
-            timmerImg.fillAmount -= Time.deltaTime * .1f;
+            if(GameManager.instance.currGameStatus == eGameStatus.play)
+                 timmerImg.fillAmount -= Time.deltaTime * .06f;
             if (timmerImg.fillAmount <= 0)
             {
                 isStart = false;
+                if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer && GameManager.instance.currTurnStatus != eTurnStatus.my)
+                    return;
                 BordManager.instace.TimeUPStartAI();
             }
         }

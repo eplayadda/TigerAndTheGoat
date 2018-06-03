@@ -143,6 +143,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnGameStartOnServer ()
 	{
+       // BordManager.instace.SetDefaultData();
 		gamePlayUI.gameObject.SetActive (true);
 		gamePlayUI.OnServerGameStart ();
 
