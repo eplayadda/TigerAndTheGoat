@@ -68,15 +68,18 @@ public class MainMenuUI : MonoBehaviour
 
 		selectPlayerPanel.SetActive (false);
 		if (tigerTgl.isOn == true) {
-			gameManager.myAnimalType = eAnimalType.tiger;
+
+            gameManager.myAnimalType = eAnimalType.tiger;
 			gameManager.friendAnimalType = eAnimalType.goat;
 			GameManager.instance.currTurnStatus = eTurnStatus.friend;
 			if (a == 1) {
+                gameManager.currGameStatus = eGameStatus.play;
 				uiManager.gamePlayUI.tigerText.text = "You";
 				uiManager.gamePlayUI.goatText.text = "Computer";
 			}
 			if (a == 2) {
-				uiManager.gamePlayUI.tigerText.text = "You";
+                gameManager.currGameStatus = eGameStatus.play;
+                uiManager.gamePlayUI.tigerText.text = "You";
 				uiManager.gamePlayUI.goatText.text = "Player 2";
 			}
 			if (a == 3 || a == 4) {
@@ -86,15 +89,19 @@ public class MainMenuUI : MonoBehaviour
 
 		}
 		if (goatTgl.isOn == true) {
-			gameManager.myAnimalType = eAnimalType.goat;
+            
+
+            gameManager.myAnimalType = eAnimalType.goat;
 			gameManager.friendAnimalType = eAnimalType.tiger;
 			GameManager.instance.currTurnStatus = eTurnStatus.my;
 			if (a == 1) {
-				uiManager.gamePlayUI.tigerText.text = "Computer";
+                gameManager.currGameStatus = eGameStatus.play;
+                uiManager.gamePlayUI.tigerText.text = "Computer";
 				uiManager.gamePlayUI.goatText.text = "You";
 			}
 			if (a == 2) {
-				uiManager.gamePlayUI.tigerText.text = "Player 2";
+                gameManager.currGameStatus = eGameStatus.play;
+                uiManager.gamePlayUI.tigerText.text = "Player 2";
 				uiManager.gamePlayUI.goatText.text = "You";
 			}
 			if (a == 3 || a == 4) {
