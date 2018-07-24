@@ -21,7 +21,7 @@ public class MainMenuUI : MonoBehaviour
 	public Text selectedFriendName;
 	public Text selectFriendPopup;
 	int curMode;
-
+    public GameObject chatGo;
 	void OnEnable ()
 	{
 		GameManager.instance.currGameStatus = eGameStatus.mainmenu;
@@ -56,6 +56,7 @@ public class MainMenuUI : MonoBehaviour
 
 	public void SelectPlayer ()
 	{
+        
 		selectFriendPopup.text = "";
 		SocialManager.Instance.isFriendsSelected = false;
 		SocialManager.Instance.SetDefaultAvatar ();
@@ -73,17 +74,20 @@ public class MainMenuUI : MonoBehaviour
 			gameManager.friendAnimalType = eAnimalType.goat;
 			GameManager.instance.currTurnStatus = eTurnStatus.friend;
 			if (a == 1) {
+                chatGo.SetActive(false);
                 gameManager.currGameStatus = eGameStatus.play;
 				uiManager.gamePlayUI.tigerText.text = "You";
 				uiManager.gamePlayUI.goatText.text = "Computer";
 			}
 			if (a == 2) {
+                chatGo.SetActive(false);
                 gameManager.currGameStatus = eGameStatus.play;
                 uiManager.gamePlayUI.tigerText.text = "You";
 				uiManager.gamePlayUI.goatText.text = "Player 2";
 			}
 			if (a == 3 || a == 4) {
-				uiManager.gamePlayUI.tigerText.text = "You";
+                chatGo.SetActive(false);
+                uiManager.gamePlayUI.tigerText.text = "You";
 				uiManager.gamePlayUI.goatText.text = "Friend";
 			}
 
@@ -101,7 +105,7 @@ public class MainMenuUI : MonoBehaviour
 			}
 			if (a == 2) {
                 gameManager.currGameStatus = eGameStatus.play;
-                uiManager.gamePlayUI.tigerText.text = "Player 2";
+				uiManager.gamePlayUI.tigerText.text = "Player 2";
 				uiManager.gamePlayUI.goatText.text = "You";
 			}
 			if (a == 3 || a == 4) {
@@ -110,19 +114,22 @@ public class MainMenuUI : MonoBehaviour
 			}
 		}
 		if (a < 3) {
-			//gameManager.currGameStatus = eGameStatus.play;
-			//GameManager.instance.showTutorial = true;
-			UIManager.instance.DisplayTutorial ();
+            //gameManager.currGameStatus = eGameStatus.play;
+            //GameManager.instance.showTutorial = true;
+            chatGo.SetActive(false);
+            UIManager.instance.DisplayTutorial ();
 			uiManager.DisableAllUI ();
 			uiManager.gamePlayUI.gameObject.SetActive (true);
 			GameManager.instance.OnGameModeSelected (a);
 		} else if (a == 4) {
-			AdsHandler.Instance.HideBannerAdsMenuPage ();
+            chatGo.SetActive(true);
+            AdsHandler.Instance.HideBannerAdsMenuPage ();
 			AdsHandler.Instance.HideBannerAdsPausePage ();
 			gameManager.isRandomPlayer = true;
 			ServerRoomPanel.SetActive (true);
 		} else {
-			AdsHandler.Instance.HideBannerAdsMenuPage ();
+            chatGo.SetActive(true);
+            AdsHandler.Instance.HideBannerAdsMenuPage ();
 			AdsHandler.Instance.HideBannerAdsPausePage ();
 			if (GameManager.instance.currentGameType == GameType.OnLine) {
 				ServerRoomPanel.SetActive (true);

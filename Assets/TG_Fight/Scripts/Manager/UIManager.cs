@@ -223,7 +223,8 @@ public class UIManager : MonoBehaviour
 
 	public void OnDicliend ()
 	{
-		inviteUI.gameObject.SetActive (false);
+        GameManager.instance.currGameStatus = eGameStatus.pause;
+        inviteUI.gameObject.SetActive (false);
 		friendDecliendPanel.SetActive (true);
 	}
 

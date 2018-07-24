@@ -35,6 +35,7 @@ public class BordManager : MonoBehaviour
 	public eTurnStatus lstGameTurn;
     public Timmer tigerTimmer;
     public Timmer goatTimmer;
+    public bool isVibrateAlow;
     void Awake ()
 	{
 		if (instace == null)
@@ -241,9 +242,10 @@ public class BordManager : MonoBehaviour
 			currWinStatus = eWinStatus.goat;
 			UIManager.instance.OnGameOver ();
 		}
-	}
+        gameManager.isTimeUp = false;
+    }
 
-	IEnumerator AITurnGoat ()
+    IEnumerator AITurnGoat ()
 	{
 		yield return new WaitForSeconds (2f);
 		List <int> aiMOve = new List<int> ();
@@ -259,10 +261,10 @@ public class BordManager : MonoBehaviour
 			//OnInputByUser (aiMOve [0]);
             InputHandler.instance.OnInputByAI(aiMOve[0]);
         }
+        gameManager.isTimeUp = false;
+    }
 
-	}
-
-	bool SetDataGoat (int pData)
+    bool SetDataGoat (int pData)
 	{
 		bool correctTile = false;
 		foreach (BranchTGNode item in allTgNodes[selectedGoatIndex].branchTgNodes) {
@@ -341,8 +343,10 @@ public class BordManager : MonoBehaviour
 	}
     public void TimeUPStartAI()
     {
+       
         if (gameManager.currTurnStatus == eTurnStatus.my)
         {
+            gameManager.isTimeUp = true;
             if (gameManager.myAnimalType == eAnimalType.tiger)
                 StartCoroutine("AITurnTiger");
             else
@@ -352,6 +356,7 @@ public class BordManager : MonoBehaviour
         {
             if (gameManager.currGameMode == eGameMode.vServerMulltiPlayer)
                 return;
+            gameManager.isTimeUp = true;
             if (gameManager.friendAnimalType == eAnimalType.tiger)
                 StartCoroutine("AITurnTiger");
              else
@@ -374,7 +379,8 @@ public class BordManager : MonoBehaviour
                     {
                         StartTimmer();
                         turnMsg.text = "You";
-                        Handheld.Vibrate();
+                        if(isVibrateAlow)
+                            Handheld.Vibrate();
                     }
 			}
 			break;
@@ -403,7 +409,8 @@ public class BordManager : MonoBehaviour
                     {
                        StartTimmer();
                         turnMsg.text = "You";
-                        Handheld.Vibrate();
+                        if(isVibrateAlow)
+                         Handheld.Vibrate();
 
                     }
                 }

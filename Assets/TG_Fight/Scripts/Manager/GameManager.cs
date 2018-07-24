@@ -66,7 +66,8 @@ public class GameManager : MonoBehaviour
 	public bool isRandomPlayer = false;
 	public bool showTutorial = false;
 	public Toggle _toggle;
-
+	public Toggle _toggleVivration;
+    public bool isTimeUp;
 
 	void Awake ()
 	{
@@ -99,7 +100,21 @@ public class GameManager : MonoBehaviour
 			PlayerPrefs.SetInt ("Tutorials", 0);
 		}
 	}
-	public bool isAllowPlay = true;
+
+    public void IsVibrateAlow()
+    {
+        if (_toggleVivration.isOn)
+        {
+           BordManager.instace.isVibrateAlow = true;
+            PlayerPrefs.SetInt("isVibrateAlow", 1);
+        }
+        else
+        {
+            BordManager.instace.isVibrateAlow = false;
+            PlayerPrefs.SetInt("isVibrateAlow", 0);
+        }
+    }
+    public bool isAllowPlay = true;
 	void GameAllow ()
 	{
 		if (PlayerPrefs.GetInt ("Tutorials") == 1) {

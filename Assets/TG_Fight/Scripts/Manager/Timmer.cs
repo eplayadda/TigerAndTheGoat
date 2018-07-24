@@ -13,8 +13,8 @@ public class Timmer : MonoBehaviour {
 
     public void ResetTimmer()
     {
-        isStart = true;
         timmerImg.fillAmount = 1;
+        isStart = true;
     }
 
     public void Stop()

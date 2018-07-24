@@ -17,16 +17,29 @@ public class MsgBox : MonoBehaviour {
             instance = this;
         Init();
     }
-
+    private void OnEnable()
+    {
+        ResetMsg();
+    }
     void Init()
     {
-        setOfMsg.Add("Fast");
-        setOfMsg.Add("Super");
+        setOfMsg.Add("Hi");
+        setOfMsg.Add("Good");
+        setOfMsg.Add("Nice Move");
+        setOfMsg.Add("Bad Luck");
+        setOfMsg.Add("Nice Play");
+        setOfMsg.Add("Play Fast");
     }
     public void MsgClicked()
     {
         isOptionAlow = !isOptionAlow;
         msgOptionsGo.SetActive(isOptionAlow);
+    }
+
+    public void ResetMsg()
+    {
+        friendTxt.transform.parent.gameObject.SetActive(false);
+        myTxt.transform.parent.gameObject.SetActive(false);
     }
 
     public void OnPreDefiendMsg(int index)
@@ -35,6 +48,8 @@ public class MsgBox : MonoBehaviour {
         DisplayMyMsg(setOfMsg[index].ToString());
         ConnectionManager.Instance.SendMsg(setOfMsg[index].ToString());
         msgOptionsGo.SetActive(false);
+        isOptionAlow = !isOptionAlow;
+
         CancelInvoke("DisableMsg");
         Invoke("DisableMsg",5f);
     }
@@ -45,6 +60,8 @@ public class MsgBox : MonoBehaviour {
         // myTxt.text = str;
         DisplayMyMsg(str);
         ConnectionManager.Instance.SendMsg(str);
+        isOptionAlow = !isOptionAlow;
+
         msgOptionsGo.SetActive(false);
         CancelInvoke("DisableMsg");
         Invoke("DisableMsg", 5f);
@@ -56,6 +73,7 @@ public class MsgBox : MonoBehaviour {
         //friendTxt.text = str;
         DisplayFriendMsg(str);
         Invoke("DisableMsg", 5f);
+        
 
     }
 
@@ -63,16 +81,21 @@ public class MsgBox : MonoBehaviour {
     {
         myTxt.text = "";
         friendTxt.text = "";
+        myTxt.transform.parent.gameObject.SetActive(false);
+        friendTxt.transform.parent.gameObject.SetActive(false);
+
     }
 
     void DisplayMyMsg(string str)
     {
         if (GameManager.instance.myAnimalType == eAnimalType.goat)
         {
+            myTxt.transform.parent.gameObject.SetActive(true);
             myTxt.text = str;
         }
         else
         {
+            friendTxt.transform.parent.gameObject.SetActive(true);
             friendTxt.text = str;
         }
     }
@@ -81,10 +104,12 @@ public class MsgBox : MonoBehaviour {
     {
         if (GameManager.instance.myAnimalType == eAnimalType.goat)
         {
+            friendTxt.transform.parent.gameObject.SetActive(true);
             friendTxt.text = str;
         }
         else
         {
+            myTxt.transform.parent.gameObject.SetActive(true);
             myTxt.text = str;
         }
     }

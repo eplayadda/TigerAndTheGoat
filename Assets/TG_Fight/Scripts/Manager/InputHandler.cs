@@ -13,6 +13,8 @@ public class InputHandler : MonoBehaviour {
 	}
 	public void OnInputTaken(int pData)
 	{
+        if (GameManager.instance.isTimeUp)
+            return;
 		if (!GameManager.instance.isAllowPlay)
 			QuitGame ();
 		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
