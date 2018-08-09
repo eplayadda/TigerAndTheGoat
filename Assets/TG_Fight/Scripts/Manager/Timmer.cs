@@ -26,6 +26,8 @@ public class Timmer : MonoBehaviour {
 	void Update () {
         if (isStart)
         {
+            if (!ConnectionManager.Instance.isFriendLive)
+                return;
             if(GameManager.instance.currGameStatus == eGameStatus.play)
                  timmerImg.fillAmount -= Time.deltaTime * .06f;
             if (timmerImg.fillAmount <= 0)

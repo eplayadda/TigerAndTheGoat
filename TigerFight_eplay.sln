@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TigerFight_eplay.Plugins", "TigerFight_eplay.Plugins.csproj", "{30445BBD-BCC7-5DF9-D02A-044AE62E4990}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TigerFight_eplay", "TigerFight_eplay.csproj", "{DC46B287-B978-E6C9-1F2A-24597D4C7376}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TigerFight_eplay.Editor", "TigerFight_eplay.Editor.csproj", "{99A93F48-F1B8-5A5A-1F69-B244C3E10000}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30445BBD-BCC7-5DF9-D02A-044AE62E4990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30445BBD-BCC7-5DF9-D02A-044AE62E4990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30445BBD-BCC7-5DF9-D02A-044AE62E4990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30445BBD-BCC7-5DF9-D02A-044AE62E4990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC46B287-B978-E6C9-1F2A-24597D4C7376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC46B287-B978-E6C9-1F2A-24597D4C7376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC46B287-B978-E6C9-1F2A-24597D4C7376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC46B287-B978-E6C9-1F2A-24597D4C7376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99A93F48-F1B8-5A5A-1F69-B244C3E10000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99A93F48-F1B8-5A5A-1F69-B244C3E10000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99A93F48-F1B8-5A5A-1F69-B244C3E10000}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99A93F48-F1B8-5A5A-1F69-B244C3E10000}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
