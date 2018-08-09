@@ -390,7 +390,7 @@ namespace BestHTTP.SignalR
             this.Uri = uri;
 
             this.JsonEncoder = Connection.DefaultEncoder;
-            this.PingInterval = TimeSpan.FromMinutes(5);
+            this.PingInterval = TimeSpan.FromMinutes(1);
 
 
 

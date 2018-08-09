@@ -23,19 +23,21 @@ public class ConnectionManager : MonoBehaviour
 	string ACK_CONNECTED = "receiveAcknowledgement";
 	string CHALLENGEACCEPTED = "ChallengeAccepted";
 	string INPUTRECIVEC = "OnInputRecived";
-	//	string baseUrl = "http://52.11.67.198/SignalRDemo/";
-	// "http://localhost:1921/SignalRDemo";// "http://52.33.40.224/SignalRDemo";//"http://localhost:1921/SignalRDemo";
-	//string baseUrl = "http://localhost:1921/SignalRDemo2/";//"http://52.11.67.198/SignalRDemo";// "http://52.33.40.224/SignalRDemo";
-	//string baseUrl = "http://huliyawebapp.azurewebsites.net/SignalR/eLarningHub/hubs";
-	//"http://52.11.67.198/eLarningHub/";
-	string baseUrl = "http://www.eplayadda.com/SignalR/eLarningHub/hubs";
-	public string myID = "1";
+    //	string baseUrl = "http://52.11.67.198/SignalRDemo/";
+    // "http://localhost:1921/SignalRDemo";// "http://52.33.40.224/SignalRDemo";//"http://localhost:1921/SignalRDemo";
+    //string baseUrl = "http://localhost:1921/SignalRDemo2/";//"http://52.11.67.198/SignalRDemo";// "http://52.33.40.224/SignalRDemo";
+    //string baseUrl = "http://huliyawebapp.azurewebsites.net/SignalR/eLarningHub/hubs";
+    //"http://52.11.67.198/eLarningHub/";
+    // baseUrl = "http://www.eplayadda.com/SignalR/eLarningHub/hubs";//"http://localhost:30359/SignalR/eLarningHub/hubs";//
+    string baseUrl = "http://localhost:30359/SignalR/eLarningHub/hubs";//
+    public string myID = "1";
 	string guestID;
 	public string friedID = "1";
 	public List<string> onlineFriends = new List<string> ();
 	bool isLatestOnline;
-
-	public enum SignalRConectionStatus
+    public bool isIamLive;
+    public bool isFriendLive;
+    public enum SignalRConectionStatus
 	{
 		None = 0,
 		DisConnected,
@@ -46,7 +48,7 @@ public class ConnectionManager : MonoBehaviour
 	public static Connection signalRConnection;
 	public static Hub _newHub;
 	public Coroutine signalRCoroutine;
-
+    public UnityEngine.UI.Text connectionMsg;
 	void Awake ()
 	{
 		if (Instance == null) {
@@ -149,7 +151,16 @@ public class ConnectionManager : MonoBehaviour
 			yield return new WaitForSeconds (1f);
                     Debug.Log("Open COnnection"+signalRConnection.State);
 			try {
-				if (signalRConnection.State == ConnectionStates.Closed) {
+                if (signalRConnection.State == ConnectionStates.Connected)
+                {
+                    isIamLive = true;
+                }
+                else
+                {
+                    isIamLive = false;
+                }
+
+                if (signalRConnection.State != ConnectionStates.Connected) {
 					signalRConnection.Open ();
 				}
 			} catch (Exception e) {
@@ -231,6 +242,8 @@ public class ConnectionManager : MonoBehaviour
 
 	public void ChallengeAccepted (Hub hub, MethodCallMessage msg)
 	{
+        isIamLive = true;
+        isFriendLive = true;
 		var str = msg.Arguments [0] as object[];
 		int a = Convert.ToInt16 (str [2].ToString ());
 		Debug.Log (str [2].ToString ());
@@ -316,7 +329,10 @@ public class ConnectionManager : MonoBehaviour
 		Debug.Log ("ACk");
 		onlineFriends.Clear ();
 //        UIManager.instance.OnSignalRConnected ();
-		var str = msg.Arguments [0] as object[];
+		string str = msg.Arguments [0] as string;
+        Debug.Log(str);
+        OnlineUser rt = JsonUtility.FromJson<OnlineUser>(str);
+        Debug.Log(str);
 		for (int i = 0; i < str.Length; i++) {
 			if (myID != str [i].ToString () && guestID != str [i].ToString ())
 				onlineFriends.Add (str [i].ToString ());
@@ -331,3 +347,6 @@ public class ConnectionManager : MonoBehaviour
 	}
 
 }
+
+
+ 

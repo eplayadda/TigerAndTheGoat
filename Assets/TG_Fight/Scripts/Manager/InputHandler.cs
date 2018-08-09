@@ -5,7 +5,7 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour {
 	public static InputHandler instance;
     public Queue<int> myCurrTurnInput = new Queue<int>();
-
+    int tryCount;
     void Awake()
 	{
 		if (instance == null)
@@ -28,7 +28,7 @@ public class InputHandler : MonoBehaviour {
         {
             Debug.Log("Input By User "+pData);
             myCurrTurnInput.Enqueue(pData);
-			ConnectionManager.Instance.OnSendMeAnswer (pData+"");
+		//	ConnectionManager.Instance.OnSendMeAnswer (pData+"");
             StartCoroutine("WaitAndSendData");
         }
 	}
@@ -40,7 +40,7 @@ public class InputHandler : MonoBehaviour {
         {
             Debug.Log("Input By User " + pData);
             myCurrTurnInput.Enqueue(pData);
-            ConnectionManager.Instance.OnSendMeAnswer(pData + "");
+         //   ConnectionManager.Instance.OnSendMeAnswer(pData + "");
             StartCoroutine("WaitAndSendData");
         }
     }
@@ -68,16 +68,38 @@ public class InputHandler : MonoBehaviour {
 
     IEnumerator WaitAndSendData()
     {
+        ConnectionManager.Instance.isFriendLive = false;
         if (myCurrTurnInput.Count <= 0)
-             StopCoroutine("WaitAndSendData");
-            yield return new WaitForSeconds(6f);
+        {
+            tryCount = 0;
+            StopCoroutine("WaitAndSendData");
+            ConnectionManager.Instance.isFriendLive = true;
+            ConnectionManager.Instance.connectionMsg.text = "";
+        }
+        
         if (myCurrTurnInput.Count > 0)
         {
+            tryCount++;
             int data = myCurrTurnInput.Peek();
             Debug.Log("Data mised Send Again"+data);
             ConnectionManager.Instance.OnSendMeAnswer(data + "");
+            if (tryCount > 3)
+            {
+                FriendNetStatus();
+            }
         }
+        yield return new WaitForSeconds(2f);
         StartCoroutine("WaitAndSendData");
+    }
+
+    void FriendNetStatus()
+    {
+        ConnectionManager.Instance.isFriendLive = false;
+        if(ConnectionManager.Instance.isIamLive)
+            ConnectionManager.Instance.connectionMsg.text = "Friend Offline";
+        else
+            ConnectionManager.Instance.connectionMsg.text = "Check your Connection";
+
     }
     void QuitGame()
 	{

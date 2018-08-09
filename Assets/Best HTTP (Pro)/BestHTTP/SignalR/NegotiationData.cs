@@ -36,7 +36,7 @@ namespace BestHTTP.SignalR
         /// The amount of time in seconds the client should wait before attempting to reconnect if it has not received a keep alive message.
         /// If the server is configured to not send keep alive messages this value is null.
         /// </summary>
-        public TimeSpan? KeepAliveTimeout { get; private set; }
+        public TimeSpan? KeepAliveTimeout {get; private set; }
 
         /// <summary>
         /// The amount of time within which the client should try to reconnect if the connection goes away.
