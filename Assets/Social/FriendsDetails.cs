@@ -9,6 +9,7 @@ public class FriendsDetails : MonoBehaviour
 	public Image ProfilePic;
 	public long ID;
 	public Image onlineIcon;
+    public GameObject playing;
 	void OnEnable()
 	{
 		onlineIcon = transform.GetChild (3).GetComponent<Image>();

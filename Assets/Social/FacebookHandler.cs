@@ -24,7 +24,7 @@ public class FacebookHandler : MonoBehaviour
 	//public Text testText;
 	private List<string> FriendsIdList = new List<string> ();
 	private List<GameObject> FriendsObjectList = new List<GameObject> ();
-
+    public GameObject loadingPanel;
 	void Start ()
 	{
 		PlayerPrefs.DeleteAll ();
@@ -138,7 +138,11 @@ public class FacebookHandler : MonoBehaviour
 
 	}
 
-	private void LoginForFriendsList ()
+    public void LoadFriends()
+    {
+        loadingPanel.SetActive(true);
+    }
+    private void LoginForFriendsList ()
 	{
 		FB.LogInWithReadPermissions (new List<string> (){ "public_profile", "email", "user_friends" }, this.FBLoginGetFriendCallBack);
 		//FB.LogInWithPublishPermissions (new List<string> () { "publish_actions" }, this.FBLoginGetFriendCallBack);
@@ -158,9 +162,10 @@ public class FacebookHandler : MonoBehaviour
 	void GetFriendAsGuest ()
 	{
 		DestroyFriendsList ();
+        loadingPanel.SetActive(false);
 
 
-		List<string> onlyGuest = new List<string> ();
+        List<string> onlyGuest = new List<string> ();
 		for (int i = 0; i < OnlineUser.users.Count; i++) {
 			string str = OnlineUser.users[i].ClientId;
 			if (str [0] == 'G') {
@@ -174,7 +179,8 @@ public class FacebookHandler : MonoBehaviour
 				g.transform.position = Vector3.zero;
 				FriendsObjectList.Add (g);
 				g.GetComponent<FriendsDetails> ().Name.text = str;
-				Toggle btn = g.GetComponentInChildren<Toggle> ();
+
+                Toggle btn = g.GetComponentInChildren<Toggle> ();
 				btn.group = toggleGroup;
 				string id = str;
 				//g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
@@ -183,8 +189,12 @@ public class FacebookHandler : MonoBehaviour
 
                 if (userID != 0) {
 					g.GetComponent<FriendsDetails> ().SetOnline (true);
-                //    OnlineUser.users[userID].isPlaying
-				} else {
+                    if (OnlineUser.users[userID].isPlaying)
+                        g.GetComponent<FriendsDetails>().playing.SetActive(true);
+                    else
+                        g.GetComponent<FriendsDetails>().playing.SetActive(false);
+                }
+                else {
 					g.GetComponent<FriendsDetails> ().SetOnline (false);
 				}
 			}
@@ -194,7 +204,8 @@ public class FacebookHandler : MonoBehaviour
 
 	void GetFreindCallback (IResult result)
 	{
-		DestroyFriendsList ();
+        loadingPanel.SetActive(false);
+        DestroyFriendsList();
 		if (GameManager.instance.isRandomPlayer)
 			GetFriendAsGuest ();
 		string resposne = result.RawResult;

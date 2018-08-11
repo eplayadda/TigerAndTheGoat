@@ -100,7 +100,7 @@ public class SocialManager : MonoBehaviour
 		UIManager.instance.mainMenuUI.selectFriendPopup.text = "";
 		isFriendsSelected = false;
 		UIManager.instance.fbFriendsPanel.SetActive (true);
-		facebookManager.GetFriends ();
+		facebookManager.LoadFriends ();
 	}
 
 	public void OnClickInvite ()

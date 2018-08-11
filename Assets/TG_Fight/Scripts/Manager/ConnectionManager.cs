@@ -348,10 +348,7 @@ public class ConnectionManager : MonoBehaviour
             }
             
         }
-	//	for (int i = 0; i < str.Length; i++) {
-	//		if (myID != str [i].ToString () && guestID != str [i].ToString ())
-				//onlineFriends.Add (str [i].ToString ());
-	//	}
+        SocialManager.Instance.facebookManager.GetFriends();
 		if (isLatestOnline) {
 			Debug.Log ("Onlime Friend");
 			SocialManager.Instance.facebookManager.GetFriends ();
