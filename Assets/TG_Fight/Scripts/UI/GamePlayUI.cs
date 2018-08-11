@@ -34,6 +34,7 @@ public class GamePlayUI : MonoBehaviour
 		} else {
 			uiManager.OnMenuBttnClicked ();
             ///if(gameManager.currGameStatus == eGameStatus.play)
+            if(ConnectionManager.Instance.isMutiplayerPlaying)
 			    ConnectionManager.Instance.OnGameOverSendData ();
 
 		}
@@ -52,9 +53,12 @@ public class GamePlayUI : MonoBehaviour
 		if (a == 1) {
 			waittingPanelBtn.interactable = true;
 			waittingMsgPnl.SetActive (false);
-			//gameManager.currGameStatus = eGameStatus.play;
-		} else {
-			Debug.Log ("Not accpetd");
+            ConnectionManager.Instance.isMutiplayerPlaying = true;
+            //gameManager.currGameStatus = eGameStatus.play;
+        }
+        else {
+            ConnectionManager.Instance.isMutiplayerPlaying = false;
+            Debug.Log ("Not accpetd");
 			UIManager.instance.OnDicliend ();
 		}
 

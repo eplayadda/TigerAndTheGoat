@@ -37,6 +37,7 @@ public class ConnectionManager : MonoBehaviour
 	bool isLatestOnline;
     public bool isIamLive;
     public bool isFriendLive;
+    public bool isMutiplayerPlaying;
     public enum SignalRConectionStatus
 	{
 		None = 0,
@@ -135,7 +136,9 @@ public class ConnectionManager : MonoBehaviour
 		if (signalRConnection != null) {
 			signalRConnection.Close ();
 			signalRConnection = null;
-		}
+            if (isMutiplayerPlaying)
+                OnGameOverSendData();
+        }
 		Debug.Log ("Application Quit");
 	}
 
@@ -236,7 +239,8 @@ public class ConnectionManager : MonoBehaviour
 		usersID.Add (myID);
 		usersID.Add (friedID);
 		usersID.Add (a + "");
-		signalRConnection [HUB_NAME].Call ("IacceptedChallenge", usersID);
+
+        signalRConnection[HUB_NAME].Call ("IacceptedChallenge", usersID);
 
 
 	}
@@ -285,6 +289,7 @@ public class ConnectionManager : MonoBehaviour
 		inputData.Add (friedID);
 		inputData.Add ("");
 		inputData.Add (1 + "");
+        isMutiplayerPlaying = false;
 		signalRConnection [HUB_NAME].Call ("InPutTaken", inputData);
 	}
     void DataRecivedACK()

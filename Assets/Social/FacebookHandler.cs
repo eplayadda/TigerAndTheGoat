@@ -187,7 +187,7 @@ public class FacebookHandler : MonoBehaviour
 				AddListener (btn, id, str);
                 int userID = OnlineUser.IsContains(id);
 
-                if (userID != 0) {
+                if (userID >= 0) {
 					g.GetComponent<FriendsDetails> ().SetOnline (true);
                     if (OnlineUser.users[userID].isPlaying)
                         g.GetComponent<FriendsDetails>().playing.SetActive(true);

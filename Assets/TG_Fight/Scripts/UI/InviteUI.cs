@@ -42,7 +42,9 @@ public class InviteUI : MonoBehaviour
 			}
 			GameManager.instance.friendAnimalType = (eAnimalType)friendAnimalType;
 			ConnectionManager.Instance.IacceptChallage (1);
-			uiManager.OnFriendInviteAccepted ();
+           ConnectionManager.Instance.isMutiplayerPlaying = true;
+
+            uiManager.OnFriendInviteAccepted ();
 			uiManager.friendDecliendPanel.SetActive (false);
 			if (uiManager.pausePanel.activeInHierarchy) {
 				Time.timeScale = 1.0f;
@@ -56,9 +58,10 @@ public class InviteUI : MonoBehaviour
 			}
 		} else {
 			ConnectionManager.Instance.IacceptChallage (0);
+            ConnectionManager.Instance.isMutiplayerPlaying = true;
 
-		}
-//		playerNameTxt.text = "Friend";
-	}
+        }
+        //		playerNameTxt.text = "Friend";
+    }
 
 }
