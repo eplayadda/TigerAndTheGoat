@@ -338,6 +338,7 @@ public class ConnectionManager : MonoBehaviour
 
             object tempData = str[i];
             Dictionary<string, object> dic = (Dictionary<string, object>)tempData;
+            Debug.Log(dic["ClientId"].ToString()+"Playing " + (bool)dic["isPlaying"]);
             if (myID != dic["ClientId"].ToString() && guestID != dic["ClientId"].ToString())
             {
                 User newUser = new User(dic);

@@ -33,7 +33,7 @@ public class GamePlayUI : MonoBehaviour
 			uiManager.BackButtonClickSingePlayer ();
 		} else {
 			uiManager.OnMenuBttnClicked ();
-            if(gameManager.currGameStatus == eGameStatus.play)
+            ///if(gameManager.currGameStatus == eGameStatus.play)
 			    ConnectionManager.Instance.OnGameOverSendData ();
 
 		}

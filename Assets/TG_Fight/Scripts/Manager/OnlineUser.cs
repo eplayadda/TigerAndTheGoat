@@ -26,8 +26,8 @@ public class User
     public User(Dictionary<string, object> dic)
     {
         ClientId = dic["ClientId"].ToString();
-        ConnectionId = dic["ClientId"].ToString();
-        isPlaying = (bool)dic["ClientId"];
+        ConnectionId = dic["ConnectionId"].ToString();
+        isPlaying = (bool)dic["isPlaying"];
     }
 
     public bool IsContains(string id)
