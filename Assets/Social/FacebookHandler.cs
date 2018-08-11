@@ -161,8 +161,8 @@ public class FacebookHandler : MonoBehaviour
 
 
 		List<string> onlyGuest = new List<string> ();
-		for (int i = 0; i < ConnectionManager.Instance.onlineFriends.Count; i++) {
-			string str = ConnectionManager.Instance.onlineFriends [i];
+		for (int i = 0; i < OnlineUser.users.Count; i++) {
+			string str = OnlineUser.users[i].ClientId;
 			if (str [0] == 'G') {
 				onlyGuest.Add (str);
 				Debug.Log (str + "____________________________::::::::::");
@@ -179,8 +179,11 @@ public class FacebookHandler : MonoBehaviour
 				string id = str;
 				//g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
 				AddListener (btn, id, str);
-				if (ConnectionManager.Instance.onlineFriends.Contains (id)) {
+                int userID = OnlineUser.IsContains(id);
+
+                if (userID != 0) {
 					g.GetComponent<FriendsDetails> ().SetOnline (true);
+                //    OnlineUser.users[userID].isPlaying
 				} else {
 					g.GetComponent<FriendsDetails> ().SetOnline (false);
 				}
@@ -219,7 +222,9 @@ public class FacebookHandler : MonoBehaviour
 			string id = resultValue ["id"].ToString ();
 			g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
 			AddListener (btn, id, name);
-			if (ConnectionManager.Instance.onlineFriends.Contains (id)) {
+            int userID = OnlineUser.IsContains(id);
+            if (userID !=0) {
+              //  OnlineUser.users[userID].isPlaying
 				g.GetComponent<FriendsDetails> ().SetOnline (true);
 			} else {
 				g.GetComponent<FriendsDetails> ().SetOnline (false);

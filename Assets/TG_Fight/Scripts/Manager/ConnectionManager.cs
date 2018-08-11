@@ -28,8 +28,8 @@ public class ConnectionManager : MonoBehaviour
     //string baseUrl = "http://localhost:1921/SignalRDemo2/";//"http://52.11.67.198/SignalRDemo";// "http://52.33.40.224/SignalRDemo";
     //string baseUrl = "http://huliyawebapp.azurewebsites.net/SignalR/eLarningHub/hubs";
     //"http://52.11.67.198/eLarningHub/";
-    // baseUrl = "http://www.eplayadda.com/SignalR/eLarningHub/hubs";//"http://localhost:30359/SignalR/eLarningHub/hubs";//
-    string baseUrl = "http://localhost:30359/SignalR/eLarningHub/hubs";//
+    string baseUrl = "http://www.eplayadda.com/SignalR/eLarningHub/hubs";//"http://localhost:30359/SignalR/eLarningHub/hubs";//
+   // string baseUrl = "http://localhost:30359/SignalR/eLarningHub/hubs";//
     public string myID = "1";
 	string guestID;
 	public string friedID = "1";
@@ -49,7 +49,8 @@ public class ConnectionManager : MonoBehaviour
 	public static Hub _newHub;
 	public Coroutine signalRCoroutine;
     public UnityEngine.UI.Text connectionMsg;
-	void Awake ()
+    
+    void Awake ()
 	{
 		if (Instance == null) {
 			Instance = this;
@@ -327,17 +328,29 @@ public class ConnectionManager : MonoBehaviour
 	public void Ack (Hub hub, MethodCallMessage msg)
 	{
 		Debug.Log ("ACk");
+        OnlineUser.users.Clear();
 		onlineFriends.Clear ();
-//        UIManager.instance.OnSignalRConnected ();
-		string str = msg.Arguments [0] as string;
-        Debug.Log(str);
-        OnlineUser rt = JsonUtility.FromJson<OnlineUser>(str);
-        Debug.Log(str);
-		for (int i = 0; i < str.Length; i++) {
-			if (myID != str [i].ToString () && guestID != str [i].ToString ())
-				onlineFriends.Add (str [i].ToString ());
-		}
-		Debug.Log (str [0].ToString () + "" + str.Length);
+        //        UIManager.instance.OnSignalRConnected ();
+        object[] str = msg.Arguments[0] as object[];
+        Debug.Log(str.Length);
+        for (int i = 0; i < str.Length; i++)
+        {
+
+            object tempData = str[i];
+            Dictionary<string, object> dic = (Dictionary<string, object>)tempData;
+            if (myID != dic["ClientId"].ToString() && guestID != dic["ClientId"].ToString())
+            {
+                User newUser = new User(dic);
+                OnlineUser.users.Add(newUser);
+                Debug.Log(" CLientID  >>>>>>>> " + dic["ClientId"]);
+                onlineFriends.Add(dic["ClientId"].ToString());
+            }
+            
+        }
+	//	for (int i = 0; i < str.Length; i++) {
+	//		if (myID != str [i].ToString () && guestID != str [i].ToString ())
+				//onlineFriends.Add (str [i].ToString ());
+	//	}
 		if (isLatestOnline) {
 			Debug.Log ("Onlime Friend");
 			SocialManager.Instance.facebookManager.GetFriends ();
