@@ -247,7 +247,8 @@ public class ConnectionManager : MonoBehaviour
             string temp = friedID;
             friedID = inviteGuestID;
             inviteGuestID = temp;
-            OnGameOverSendData(inviteGuestID);
+            if(isMutiplayerPlaying)
+              OnGameOverSendData(inviteGuestID);
         }
 
         signalRConnection[HUB_NAME].Call ("IacceptedChallenge", usersID);
