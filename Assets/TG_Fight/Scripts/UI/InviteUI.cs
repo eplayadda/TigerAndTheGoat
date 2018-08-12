@@ -17,7 +17,7 @@ public class InviteUI : MonoBehaviour
         Invoke("DisableAfterDelay", 5);
 	}
 
-    void DisableAfterDelay()
+   public void DisableAfterDelay()
     {
         OnInviteClicked(false);
     }

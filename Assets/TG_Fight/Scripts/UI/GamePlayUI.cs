@@ -54,6 +54,8 @@ public class GamePlayUI : MonoBehaviour
 			waittingPanelBtn.interactable = true;
 			waittingMsgPnl.SetActive (false);
             ConnectionManager.Instance.isMutiplayerPlaying = true;
+            Debug.Log("CAncleInvoke");
+            uiManager.inviteUI.CancelInvoke("DisableAfterDelay");
             //gameManager.currGameStatus = eGameStatus.play;
         }
         else {

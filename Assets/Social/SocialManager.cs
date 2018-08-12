@@ -105,6 +105,7 @@ public class SocialManager : MonoBehaviour
 
 	public void OnClickInvite ()
 	{
+        UIManager.instance.mainMenuUI.OnCreateRoom(3);
 		UIManager.instance.fbFriendsPanel.SetActive (false);
 	}
 
