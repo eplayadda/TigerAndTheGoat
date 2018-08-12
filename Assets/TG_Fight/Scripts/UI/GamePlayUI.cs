@@ -35,7 +35,7 @@ public class GamePlayUI : MonoBehaviour
 			uiManager.OnMenuBttnClicked ();
             ///if(gameManager.currGameStatus == eGameStatus.play)
             if(ConnectionManager.Instance.isMutiplayerPlaying)
-			    ConnectionManager.Instance.OnGameOverSendData ();
+			    ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.friedID);
 
 		}
 	}

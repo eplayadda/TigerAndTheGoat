@@ -138,7 +138,7 @@ public class ConnectionManager : MonoBehaviour
 			signalRConnection.Close ();
 			signalRConnection = null;
             if (isMutiplayerPlaying)
-                OnGameOverSendData();
+                OnGameOverSendData(friedID);
         }
 		Debug.Log ("Application Quit");
 	}
@@ -242,8 +242,13 @@ public class ConnectionManager : MonoBehaviour
 		usersID.Add (inviteGuestID);
 		usersID.Add (a + "");
         Debug.Log("Invite Accepted Sent to server" );
-        if(a == 1)
+        if (a == 1)
+        {
+            string temp = friedID;
             friedID = inviteGuestID;
+            inviteGuestID = temp;
+            OnGameOverSendData(inviteGuestID);
+        }
 
         signalRConnection[HUB_NAME].Call ("IacceptedChallenge", usersID);
 
@@ -287,11 +292,11 @@ public class ConnectionManager : MonoBehaviour
 		signalRConnection [HUB_NAME].Call ("InPutTaken", inputData);
 	}
 
-	public void OnGameOverSendData ()
+	public void OnGameOverSendData (string id)
 	{
 		//Game Over
 		inputData.Clear ();
-		inputData.Add (friedID);
+		inputData.Add (id);
 		inputData.Add ("");
 		inputData.Add (1 + "");
         isMutiplayerPlaying = false;
