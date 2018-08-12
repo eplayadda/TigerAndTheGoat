@@ -17,12 +17,17 @@ public class InviteUI : MonoBehaviour
         Invoke("DisableAfterDelay", 5);
 	}
 
-   public void DisableAfterDelay()
+    private void OnDisable()
+    {
+        CancelInvoke("DisableAfterDelay");
+    }
+    public void DisableAfterDelay()
     {
         OnInviteClicked(false);
     }
 	public void OnInviteClicked (bool isAccepted)
 	{
+        Debug.Log("Invite Accepted in Btn"+isAccepted);
 		gameObject.SetActive (false);
 		SocialManager.Instance.SetDefaultAvatar ();
 		SocialManager.Instance.UpdateFriendName ("");

@@ -239,6 +239,7 @@ public class ConnectionManager : MonoBehaviour
 		usersID.Add (myID);
 		usersID.Add (friedID);
 		usersID.Add (a + "");
+        Debug.Log("Invite Accepted Sent to server" );
 
         signalRConnection[HUB_NAME].Call ("IacceptedChallenge", usersID);
 
