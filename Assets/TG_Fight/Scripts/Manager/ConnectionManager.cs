@@ -32,6 +32,7 @@ public class ConnectionManager : MonoBehaviour
    // string baseUrl = "http://localhost:30359/SignalR/eLarningHub/hubs";//
     public string myID = "1";
 	string guestID;
+    public string inviteGuestID;
 	public string friedID = "1";
 	public List<string> onlineFriends = new List<string> ();
 	bool isLatestOnline;
@@ -223,7 +224,8 @@ public class ConnectionManager : MonoBehaviour
 
 		Debug.Log ("Request came");
 		var str = msg.Arguments [0] as object[];
-		friedID = str [0].ToString ();
+        //friedID = str [0].ToString ();
+        inviteGuestID = str[0].ToString();
 		int tablePrice = Convert.ToInt32 (str [2].ToString ());
 		int subjectType = Convert.ToInt32 (str [3].ToString ());
 		string pName = str [4].ToString ();
@@ -237,9 +239,11 @@ public class ConnectionManager : MonoBehaviour
 	{
 		usersID.Clear ();
 		usersID.Add (myID);
-		usersID.Add (friedID);
+		usersID.Add (inviteGuestID);
 		usersID.Add (a + "");
         Debug.Log("Invite Accepted Sent to server" );
+        if(a == 1)
+            friedID = inviteGuestID;
 
         signalRConnection[HUB_NAME].Call ("IacceptedChallenge", usersID);
 

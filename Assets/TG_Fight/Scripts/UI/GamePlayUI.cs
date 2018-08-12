@@ -51,7 +51,7 @@ public class GamePlayUI : MonoBehaviour
 	public void OnServerPlayerAccepted (int a)
 	{
 		if (a == 1) {
-			waittingPanelBtn.interactable = true;
+            waittingPanelBtn.interactable = true;
 			waittingMsgPnl.SetActive (false);
             ConnectionManager.Instance.isMutiplayerPlaying = true;
             Debug.Log("CAncleInvoke");
