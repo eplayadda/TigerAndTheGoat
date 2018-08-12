@@ -381,8 +381,11 @@ public class BordManager : MonoBehaviour
                     {
                         StartTimmer();
                         turnMsg.text = "You";
-                        if(isVibrateAlow)
+                        if (isVibrateAlow)
+                        {
                             Handheld.Vibrate();
+                            Debug.Log("Vibrate...");
+                        }
                     }
 			}
 			break;
@@ -411,8 +414,11 @@ public class BordManager : MonoBehaviour
                     {
                        StartTimmer();
                         turnMsg.text = "You";
-                        if(isVibrateAlow)
-                         Handheld.Vibrate();
+                        if (isVibrateAlow)
+                        {
+                            Handheld.Vibrate();
+                            Debug.Log("Vibrate...");
+                        }
 
                     }
                 }
