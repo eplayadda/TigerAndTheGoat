@@ -23,7 +23,8 @@ public class InviteUI : MonoBehaviour
     }
     public void DisableAfterDelay()
     {
-        gameObject.SetActive(false);
+        OnInviteClicked(false);
+        //gameObject.SetActive(false);
     }
 	public void OnInviteClicked (bool isAccepted)
 	{
