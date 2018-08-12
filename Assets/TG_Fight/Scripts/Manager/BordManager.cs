@@ -70,6 +70,8 @@ public class BordManager : MonoBehaviour
 		StopAllCoroutines ();
 		StopCoroutine ("AITurnTiger");
 		StopCoroutine ("AITurnGoat");
+        tigerTimmer.Stop();
+        goatTimmer.Stop();
 	}
 
 	 public void SetDefaultData ()

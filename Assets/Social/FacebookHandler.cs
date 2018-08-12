@@ -27,7 +27,6 @@ public class FacebookHandler : MonoBehaviour
     public GameObject loadingPanel;
 	void Start ()
 	{
-		PlayerPrefs.DeleteAll ();
 
 	}
 

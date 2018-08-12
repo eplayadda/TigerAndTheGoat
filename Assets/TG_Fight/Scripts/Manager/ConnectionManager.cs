@@ -135,10 +135,11 @@ public class ConnectionManager : MonoBehaviour
 	void OnApplicationQuit ()
 	{
 		if (signalRConnection != null) {
-			signalRConnection.Close ();
-			signalRConnection = null;
             if (isMutiplayerPlaying)
                 OnGameOverSendData(friedID);
+            signalRConnection.Close ();
+			signalRConnection = null;
+           
         }
 		Debug.Log ("Application Quit");
 	}
