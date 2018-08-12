@@ -14,8 +14,13 @@ public class InviteUI : MonoBehaviour
 	{
 		gameManager = GameManager.instance;
 		uiManager = UIManager.instance;
+        Invoke("DisableAfterDelay", 5);
 	}
 
+    void DisableAfterDelay()
+    {
+        OnInviteClicked(false);
+    }
 	public void OnInviteClicked (bool isAccepted)
 	{
 		gameObject.SetActive (false);

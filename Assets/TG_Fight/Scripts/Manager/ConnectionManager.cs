@@ -316,6 +316,7 @@ public class ConnectionManager : MonoBehaviour
                 Debug.Log (a + " ");
 			}
 		} else if (str [2].ToString () == "1") {
+            isMutiplayerPlaying = false;
 			//int a = Convert.ToInt32(str[1]);
 			UIManager.instance.FriendGameOver ();
 		} else if (str [2].ToString () == "2") {
