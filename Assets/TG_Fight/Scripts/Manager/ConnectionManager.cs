@@ -155,7 +155,7 @@ public class ConnectionManager : MonoBehaviour
 		signalRConnection.Open ();
 		while (true) {
 			yield return new WaitForSeconds (1f);
-                    Debug.Log("Open COnnection"+signalRConnection.State);
+                    //Debug.Log("Open COnnection"+signalRConnection.State);
 			try {
                 if (signalRConnection.State == ConnectionStates.Connected)
                 {

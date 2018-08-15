@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 	public int totalNoOfTiger;
 	public bool isRandomPlayer = false;
 	public bool showTutorial = false;
-	public Toggle _toggle;
+	public Toggle _toggleTutorial;
 	public Toggle _toggleVivration;
     public bool isTimeUp;
 
@@ -91,8 +91,8 @@ public class GameManager : MonoBehaviour
 
 	public void TutorialAllow ()
 	{
-		Debug.Log (_toggle.isOn);
-		if (_toggle.isOn) {
+		Debug.Log (_toggleTutorial.isOn);
+		if (_toggleTutorial.isOn) {
 			showTutorial = true;
 			PlayerPrefs.SetInt ("Tutorials", 1);
 		} else {
@@ -118,10 +118,10 @@ public class GameManager : MonoBehaviour
 	void GameAllow ()
 	{
 		if (PlayerPrefs.GetInt ("Tutorials") == 1) {
-			_toggle.isOn = true;
+			_toggleTutorial.isOn = true;
 			showTutorial = true;
 		} else {
-			_toggle.isOn = false;
+			_toggleTutorial.isOn = false;
 			showTutorial = false;
 		}
         /*

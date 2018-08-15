@@ -30,9 +30,9 @@ public class AudioManager : MonoBehaviour
 		}
 	}
 
-	public Toggle _toggle;
+	public Toggle _toggleMute;
 
-	public GameObject[] togglePanel;
+    public GameObject[] togglePanel;
 
 	public Slider musicSlider;
 //	public Slider soundSlider;
@@ -40,28 +40,24 @@ public class AudioManager : MonoBehaviour
 	public AudioClip[] gameSoundClips;
 	public AudioSource[] audioSources;
 
-	void Awake ()
+	void Start ()
 	{
+       // PlayerPrefs.DeleteAll();
 		audioSources = GetComponents<AudioSource> ();
 		StartGamePlayAudio ();
 		Debug.Log (PlayerPrefs.GetInt ("Once")+"????");
 		if (PlayerPrefs.GetInt ("Once") == 0) {
-//			PlayerPrefs.SetInt ("FriendScore",-1);
 			PlayerPrefs.SetFloat ("music", 1f);
-//			PlayerPrefs.SetFloat ("sound", 1f);
-			PlayerPrefs.SetInt ("isMute", 0);
-//			soundSlider.value = 1f;
 			musicSlider.value = 1f;
 			PlayerPrefs.SetInt ("Once", 1);
 		} else {
-//			soundSlider.value = PlayerPrefs.GetFloat ("sound");
 			musicSlider.value = PlayerPrefs.GetFloat ("music");
 		}
 		if (PlayerPrefs.GetInt ("mute") == 0) {
-			_toggle.isOn = false;
+            _toggleMute.isOn = false;
 		}
 		else{
-			_toggle.isOn = true;
+            _toggleMute.isOn = true;
 		}
 		SetValue ();
 	}
@@ -69,30 +65,39 @@ public class AudioManager : MonoBehaviour
 	void SetValue()
 	{
 		audioSources [0].volume = PlayerPrefs.GetFloat ("music");
-		Debug.Log (_toggle.isOn+"dcdd");
-		if (_toggle.isOn) {
-			foreach (AudioSource source in audioSources) {
-				source.mute = true;
-			}
-		}
+        if (_toggleMute.isOn)
+        {
+            foreach (AudioSource source in audioSources)
+            {
+                source.mute = true;
+            }
+        }
+        else
+        {
+            foreach (AudioSource source in audioSources)
+            {
+                source.mute = false;
+            }
+        }
 
 	}
 	public void GameplaySoundOnOff ()
 	{
-		Debug.Log (_toggle.isOn);
+		Debug.Log (_toggleMute.isOn);
 
-		if (_toggle.isOn) {
+		if (_toggleMute.isOn) {
 			PlayerPrefs.SetInt ("mute",1) ;
-			Debug.Log ("Pause");
-			//togglePanel [0].SetActive (true);
-		//	togglePanel [1].SetActive (false);
-			foreach (AudioSource source in audioSources) {
+			Debug.Log ("Pause "+PlayerPrefs.GetInt("mute"));
+
+            //togglePanel [0].SetActive (true);
+            //	togglePanel [1].SetActive (false);
+            foreach (AudioSource source in audioSources) {
 				source.mute = true;
 			}
 
 		} else {
 			PlayerPrefs.SetInt ("mute",0) ;
-			Debug.Log ("Play");
+			Debug.Log ("Play "+PlayerPrefs.GetInt("mute"));
 		//	togglePanel [0].SetActive (false);
 		//	togglePanel [1].SetActive (true);
 			foreach (AudioSource source in audioSources) {
