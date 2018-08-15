@@ -68,8 +68,9 @@ public class GameManager : MonoBehaviour
 	public Toggle _toggleTutorial;
 	public Toggle _toggleVivration;
     public bool isTimeUp;
+    public bool isVibrateAlow;
 
-	void Awake ()
+    void Awake ()
 	{
 		if (instance == null)
 			instance = this;
@@ -105,12 +106,12 @@ public class GameManager : MonoBehaviour
     {
         if (_toggleVivration.isOn)
         {
-           BordManager.instace.isVibrateAlow = true;
+            isVibrateAlow = true;
             PlayerPrefs.SetInt("isVibrateAlow", 1);
         }
         else
         {
-            BordManager.instace.isVibrateAlow = false;
+            isVibrateAlow = false;
             PlayerPrefs.SetInt("isVibrateAlow", 0);
         }
     }

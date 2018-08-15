@@ -35,7 +35,6 @@ public class BordManager : MonoBehaviour
 	public eTurnStatus lstGameTurn;
     public Timmer tigerTimmer;
     public Timmer goatTimmer;
-    public bool isVibrateAlow;
     void Awake ()
 	{
 		if (instace == null)
@@ -381,7 +380,7 @@ public class BordManager : MonoBehaviour
                     {
                         StartTimmer();
                         turnMsg.text = "You";
-                        if (isVibrateAlow)
+                        if (gameManager.isVibrateAlow)
                         {
                             Handheld.Vibrate();
                             Debug.Log("Vibrate...");
@@ -414,7 +413,7 @@ public class BordManager : MonoBehaviour
                     {
                        StartTimmer();
                         turnMsg.text = "You";
-                        if (isVibrateAlow)
+                        if (gameManager.isVibrateAlow)
                         {
                             Handheld.Vibrate();
                             Debug.Log("Vibrate...");
