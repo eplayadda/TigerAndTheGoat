@@ -2,3 +2,9 @@ Library/
 Temp/
 Build/
 .vs/
+Assets/UnityVS/
+Assets/UnityVS.meta
+.csproj
+*.csproj
+obj/Debug/build.force
+UnityVS.TigerAndTheGoat.sln
