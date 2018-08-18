@@ -23,6 +23,7 @@ public class ConnectionManager : MonoBehaviour
 	string ACK_CONNECTED = "receiveAcknowledgement";
 	string CHALLENGEACCEPTED = "ChallengeAccepted";
 	string INPUTRECIVEC = "OnInputRecived";
+    string ReceiveOneSignalID = "receiveOneSignalID";
     //	string baseUrl = "http://52.11.67.198/SignalRDemo/";
     // "http://localhost:1921/SignalRDemo";// "http://52.33.40.224/SignalRDemo";//"http://localhost:1921/SignalRDemo";
     //string baseUrl = "http://localhost:1921/SignalRDemo2/";//"http://52.11.67.198/SignalRDemo";// "http://52.33.40.224/SignalRDemo";
@@ -54,6 +55,7 @@ public class ConnectionManager : MonoBehaviour
     
     void Awake ()
 	{
+        PlayerPrefs.DeleteAll();
 		if (Instance == null) {
 			Instance = this;
 			DontDestroyOnLoad (this.gameObject);
@@ -181,9 +183,12 @@ public class ConnectionManager : MonoBehaviour
 		signalRConnection [HUB_NAME].On (ACK_CONNECTED, Ack);
 		signalRConnection [HUB_NAME].On (CHALLENGEACCEPTED, ChallengeAccepted);
 		signalRConnection [HUB_NAME].On (INPUTRECIVEC, OnInputRecived);
-	}
+		signalRConnection [HUB_NAME].On (ReceiveOneSignalID, OnReceiveOneSignalID);
 
-	List <string> usersID = new List<string> ();
+     
+    }
+
+    List <string> usersID = new List<string> ();
 
 	// Sending Request
 	public void OnSendRequest (string pTablePrice, string pCurrSubjectType,string pName)
@@ -235,8 +240,14 @@ public class ConnectionManager : MonoBehaviour
 		UIManager.instance.OnSendRequest (tablePrice, subjectType,pName);
 
 	}
+    void OnReceiveOneSignalID(Hub hub, MethodCallMessage msg)
+    {
+        var str = msg.Arguments[0] as object;
+        string onSignalID = str.ToString();
+        Debug.Log("OnSignalID------???"+onSignalID);
+    }
 
-	public void IacceptChallage (int a)
+    public void IacceptChallage (int a)
 	{
 		usersID.Clear ();
 		usersID.Add (myID);
@@ -372,8 +383,11 @@ public class ConnectionManager : MonoBehaviour
 			SocialManager.Instance.facebookManager.GetFriends ();
 			isLatestOnline = false;
 		}
-
-	}
+      //  signalRConnection[HUB_NAME].Call("InsertOnSignalData", new List<string>() { "FB_55000", "S5_6000", "30", "3", "3" });
+       // signalRConnection[HUB_NAME].Call("UpdateScore", new List<string>() { "FB_55000", "S5_5000", "3022", "5553", "3" });
+        signalRConnection[HUB_NAME].Call("GetOneSignalID", "FB_55000");
+        Debug.Log("+++++++++++++++++++Inserdata");
+    }
 
 }
 
