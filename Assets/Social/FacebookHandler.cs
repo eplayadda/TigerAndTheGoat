@@ -195,8 +195,10 @@ public class FacebookHandler : MonoBehaviour
                 }
                 else {
 					g.GetComponent<FriendsDetails> ().SetOnline (false);
-				}
-			}
+                    g.GetComponent<FriendsDetails>().playing.SetActive(false);
+
+                }
+            }
 		}
 
 	}
@@ -233,13 +235,22 @@ public class FacebookHandler : MonoBehaviour
 			g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
 			AddListener (btn, id, name);
             int userID = OnlineUser.IsContains(id);
-            if (userID !=0) {
-              //  OnlineUser.users[userID].isPlaying
-				g.GetComponent<FriendsDetails> ().SetOnline (true);
-			} else {
-				g.GetComponent<FriendsDetails> ().SetOnline (false);
-			}
-			if (!string.IsNullOrEmpty (id)) {
+          
+            if (userID >= 0)
+            {
+                g.GetComponent<FriendsDetails>().SetOnline(true);
+                if (OnlineUser.users[userID].isPlaying)
+                    g.GetComponent<FriendsDetails>().playing.SetActive(true);
+                else
+                    g.GetComponent<FriendsDetails>().playing.SetActive(false);
+            }
+            else
+            {
+                g.GetComponent<FriendsDetails>().SetOnline(false);
+                g.GetComponent<FriendsDetails>().playing.SetActive(false);
+
+            }
+            if (!string.IsNullOrEmpty (id)) {
 				FB.API ("https" + "://graph.facebook.com/" + id + "/picture?width=128&height=128", HttpMethod.GET, delegate(IGraphResult avatarResult) {
 					if (avatarResult.Error != null) {
 						Debug.Log (avatarResult.Error);
