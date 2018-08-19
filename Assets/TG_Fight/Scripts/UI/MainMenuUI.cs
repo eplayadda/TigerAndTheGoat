@@ -19,6 +19,7 @@ public class MainMenuUI : MonoBehaviour
 	public Text username;
 	public  Image ProfilePic;
 	public Text selectedFriendName;
+    public Text playerName;
 	public Text selectFriendPopup;
 	int curMode;
     public GameObject chatGo;

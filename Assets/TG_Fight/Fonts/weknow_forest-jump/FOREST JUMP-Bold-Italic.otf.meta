@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 411ad1b7c9e053c4d836d98037bfe838
-timeCreated: 1519926083
+guid: 967dea3309dcedb4fbf3baacbd77d77c
+timeCreated: 1534665914
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -9,10 +9,11 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Segoe UI
+  fontName: FOREST JUMP
   fontNames:
-  - Segoe UI
-  fallbackFontReferences: []
+  - FOREST JUMP
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 9199363d2d7bed040809dac1a21c94b6, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

@@ -387,7 +387,9 @@ public class FacebookHandler : MonoBehaviour
 	
 		Dictionary<string,object> resultData = (Dictionary<string,object>)result.ResultDictionary;
 		UIManager.instance.mainMenuUI.username.text = resultData ["first_name"].ToString ();
-		string playerImgUrl = DeserializePictureURL (result.ResultDictionary);
+        UIManager.instance.mainMenuUI.playerName.text = UIManager.instance.mainMenuUI.username.text;
+
+        string playerImgUrl = DeserializePictureURL (result.ResultDictionary);
 		Debug.Log ("playerImgUrl " + playerImgUrl);
 		SocialManager.Instance.UpdateUserProfile (playerImgUrl);
 

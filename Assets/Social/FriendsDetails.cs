@@ -12,7 +12,7 @@ public class FriendsDetails : MonoBehaviour
     public GameObject playing;
 	void OnEnable()
 	{
-		onlineIcon = transform.GetChild (3).GetComponent<Image>();
+		//onlineIcon = transform.GetChild (3).GetComponent<Image>();
 	}
 	public void SetOnline(bool isOnline)
 	{

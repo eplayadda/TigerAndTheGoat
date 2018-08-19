@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 06e43350066047340b43e95718314515
+timeCreated: 1534665914
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: FOREST JUMP-Light
+  fontNames:
+  - FOREST JUMP-Light
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

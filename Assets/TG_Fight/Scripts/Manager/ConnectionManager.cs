@@ -61,7 +61,8 @@ public class ConnectionManager : MonoBehaviour
 			DontDestroyOnLoad (this.gameObject);
 			myID = GetRandomID ();
 			UIManager.instance.mainMenuUI.username.text = myID;
-			guestID = myID;
+            UIManager.instance.mainMenuUI.playerName.text = myID;
+            guestID = myID;
 		} else {
 			DestroyImmediate (this.gameObject);
 			return;

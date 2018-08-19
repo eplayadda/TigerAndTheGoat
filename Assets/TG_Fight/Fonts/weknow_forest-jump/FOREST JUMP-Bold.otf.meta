@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: eebae5cfe6b855745a0c14674892d30e
+timeCreated: 1534665914
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: FOREST JUMP
+  fontNames:
+  - FOREST JUMP
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 967dea3309dcedb4fbf3baacbd77d77c, type: 3}
+  - {fileID: 12800000, guid: 9199363d2d7bed040809dac1a21c94b6, type: 3}
+  - {fileID: 12800000, guid: e7bed3bddfd078441a3181d61db8e274, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
