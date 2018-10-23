@@ -13,6 +13,7 @@ public class InputHandler : MonoBehaviour {
 	}
 	public void OnInputTaken(int pData)
 	{
+        Debug.Log("Current Input >>> "+pData);
         if (GameManager.instance.isTimeUp)
             return;
 		if (!GameManager.instance.isAllowPlay)
