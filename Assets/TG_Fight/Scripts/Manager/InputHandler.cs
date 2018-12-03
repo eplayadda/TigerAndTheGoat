@@ -115,6 +115,7 @@ public class InputHandler : MonoBehaviour {
     void FriendNetStatus()
     {
         ConnectionManager.Instance.isFriendLive = false;
+		return;
         if(ConnectionManager.Instance.isIamLive)
             ConnectionManager.Instance.connectionMsg.text = "Friend Offline";
         else
