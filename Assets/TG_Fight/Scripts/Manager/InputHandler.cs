@@ -4,9 +4,20 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour {
 	public static InputHandler instance;
-    public Queue<int> myCurrTurnInput = new Queue<int>();
+	public Queue<InputPacket> myCurrTurnInput = new Queue<InputPacket>();
     int tryCount;
 	int tokenID= 0;
+
+	public class InputPacket
+	{
+		public int packetID;
+		public int input;
+		public InputPacket(int pPacketID,int pInput)
+		{
+			packetID = pPacketID;
+			input = pInput;
+		}
+	}
     void Awake()
 	{
 		if (instance == null)
@@ -30,7 +41,8 @@ public class InputHandler : MonoBehaviour {
         {
             Debug.Log("Input By User "+pData);
 			tokenID++;
-            myCurrTurnInput.Enqueue(pData);
+			InputPacket ip = new InputPacket (tokenID,pData);
+			myCurrTurnInput.Enqueue(ip);
 			//ConnectionManager.Instance.OnSendMeAnswer (pData+"");
             StartCoroutine("WaitAndSendData");
         }
@@ -43,7 +55,8 @@ public class InputHandler : MonoBehaviour {
         {
 			tokenID++;
             Debug.Log("Input By User " + pData);
-            myCurrTurnInput.Enqueue(pData);
+			InputPacket ip = new InputPacket (tokenID,pData);
+			myCurrTurnInput.Enqueue(ip);
          //   ConnectionManager.Instance.OnSendMeAnswer(pData + "");
             StartCoroutine("WaitAndSendData");
         }
@@ -87,9 +100,9 @@ public class InputHandler : MonoBehaviour {
         if (myCurrTurnInput.Count > 0)
         {
             tryCount++;
-            int data = myCurrTurnInput.Peek();
-            Debug.Log("Data mised Send Again"+data);
-			ConnectionManager.Instance.OnSendMeAnswer(data + " "+tokenID);
+			InputPacket ip = myCurrTurnInput.Peek();
+			Debug.Log("Data mised Send Again"+ip.input);
+			ConnectionManager.Instance.OnSendMeAnswer(ip.input + " "+ip.packetID);
             if (tryCount > 3)
             {
                 FriendNetStatus();
