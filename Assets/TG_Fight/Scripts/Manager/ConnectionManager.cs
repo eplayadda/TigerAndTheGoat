@@ -344,6 +344,8 @@ public class ConnectionManager : MonoBehaviour
 					recivedPacketID = packetID;
 					Debug.Log (a + " ");
 				}
+				Debug.Log (recivedPacketID + " packet ID "+packetID);
+
 
 			}
 		} else if (str [2].ToString () == "1") {
