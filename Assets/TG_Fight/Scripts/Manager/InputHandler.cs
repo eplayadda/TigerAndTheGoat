@@ -41,6 +41,7 @@ public class InputHandler : MonoBehaviour {
         BordManager.instace.OnInputByUser(pData);
         if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer)
         {
+			tokenID++;
             Debug.Log("Input By User " + pData);
             myCurrTurnInput.Enqueue(pData);
          //   ConnectionManager.Instance.OnSendMeAnswer(pData + "");
