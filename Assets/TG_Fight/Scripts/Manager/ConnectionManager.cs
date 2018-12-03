@@ -40,6 +40,7 @@ public class ConnectionManager : MonoBehaviour
     public bool isIamLive;
     public bool isFriendLive;
     public bool isMutiplayerPlaying;
+	int recivedPacketID;
     public enum SignalRConectionStatus
 	{
 		None = 0,
@@ -334,9 +335,13 @@ public class ConnectionManager : MonoBehaviour
 
 		if (str [2].ToString () == "0") {
 			if (GameManager.instance.currGameStatus == eGameStatus.play) {
-				int a = Convert.ToInt32 (str [1].ToString ());
-				InputHandler.instance.OnInputTakenBYServer (a);
+				string[] packet = str [1].ToString ().Split(' ');
+				int a = Convert.ToInt32 (packet[0]);
+				int packetID = Convert.ToInt32 (packet [1]);
+				if(recivedPacketID != packetID)
+					InputHandler.instance.OnInputTakenBYServer (a);
                 DataRecivedACK();
+				recivedPacketID = packetID;
                 Debug.Log (a + " ");
 			}
 		} else if (str [2].ToString () == "1") {

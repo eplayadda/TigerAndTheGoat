@@ -6,6 +6,7 @@ public class InputHandler : MonoBehaviour {
 	public static InputHandler instance;
     public Queue<int> myCurrTurnInput = new Queue<int>();
     int tryCount;
+	int tokenID= 0;
     void Awake()
 	{
 		if (instance == null)
@@ -28,8 +29,9 @@ public class InputHandler : MonoBehaviour {
 		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer)
         {
             Debug.Log("Input By User "+pData);
+			tokenID++;
             myCurrTurnInput.Enqueue(pData);
-		//	ConnectionManager.Instance.OnSendMeAnswer (pData+"");
+			//ConnectionManager.Instance.OnSendMeAnswer (pData+"");
             StartCoroutine("WaitAndSendData");
         }
 	}
@@ -51,6 +53,7 @@ public class InputHandler : MonoBehaviour {
 			QuitGame ();
         myCurrTurnInput.Clear();
         StopCoroutine("WaitAndSendData");
+
 		BordManager.instace.OnInputByUser(pData);
         Debug.Log("Input By Friend " + pData);
 
@@ -60,11 +63,12 @@ public class InputHandler : MonoBehaviour {
 
     public void AcknowledgementByServer()
     {
-        if(myCurrTurnInput.Count >0)
-        myCurrTurnInput.Dequeue();
+		if (myCurrTurnInput.Count > 0) {
+			myCurrTurnInput.Dequeue();
+			StartCoroutine("WaitAndSendData");
+		}
         Debug.Log("AcknowledgementByServer" + myCurrTurnInput.Count);
 
-        StartCoroutine("WaitAndSendData");
     }
 
     IEnumerator WaitAndSendData()
@@ -75,7 +79,8 @@ public class InputHandler : MonoBehaviour {
             tryCount = 0;
             StopCoroutine("WaitAndSendData");
             ConnectionManager.Instance.isFriendLive = true;
-            ConnectionManager.Instance.connectionMsg.text = "";
+			yield break;
+           // ConnectionManager.Instance.connectionMsg.text = "";
         }
         
         if (myCurrTurnInput.Count > 0)
@@ -83,13 +88,13 @@ public class InputHandler : MonoBehaviour {
             tryCount++;
             int data = myCurrTurnInput.Peek();
             Debug.Log("Data mised Send Again"+data);
-            ConnectionManager.Instance.OnSendMeAnswer(data + "");
+			ConnectionManager.Instance.OnSendMeAnswer(data + " "+tokenID);
             if (tryCount > 3)
             {
                 FriendNetStatus();
             }
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         StartCoroutine("WaitAndSendData");
     }
 
