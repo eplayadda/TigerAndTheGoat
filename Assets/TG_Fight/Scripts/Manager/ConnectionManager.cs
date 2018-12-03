@@ -338,11 +338,13 @@ public class ConnectionManager : MonoBehaviour
 				string[] packet = str [1].ToString ().Split(' ');
 				int a = Convert.ToInt32 (packet[0]);
 				int packetID = Convert.ToInt32 (packet [1]);
-				if(recivedPacketID != packetID)
+				if (recivedPacketID != packetID) {
 					InputHandler.instance.OnInputTakenBYServer (a);
-                DataRecivedACK();
-				recivedPacketID = packetID;
-                Debug.Log (a + " ");
+					DataRecivedACK();
+					recivedPacketID = packetID;
+					Debug.Log (a + " ");
+				}
+
 			}
 		} else if (str [2].ToString () == "1") {
             isMutiplayerPlaying = false;
