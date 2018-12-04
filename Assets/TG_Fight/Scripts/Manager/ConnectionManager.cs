@@ -317,11 +317,11 @@ public class ConnectionManager : MonoBehaviour
         isMutiplayerPlaying = false;
 		signalRConnection [HUB_NAME].Call ("InPutTaken", inputData);
 	}
-    void DataRecivedACK()
+	void DataRecivedACK(int packetID)
     {
         inputData.Clear();
         inputData.Add(friedID);
-        inputData.Add("");
+		inputData.Add(packetID+"");
         inputData.Add(2 + "");
         signalRConnection[HUB_NAME].Call("InPutTaken", inputData);
     }
@@ -340,12 +340,11 @@ public class ConnectionManager : MonoBehaviour
 				int packetID = Convert.ToInt32 (packet [1]);
 				if (recivedPacketID != packetID) {
 					InputHandler.instance.OnInputTakenBYServer (a);
-					DataRecivedACK();
 					recivedPacketID = packetID;
 					Debug.Log (a + " ");
 				}
 				Debug.Log (recivedPacketID + " packet ID "+packetID);
-
+				DataRecivedACK(packetID);
 
 			}
 		} else if (str [2].ToString () == "1") {
@@ -353,7 +352,7 @@ public class ConnectionManager : MonoBehaviour
 			//int a = Convert.ToInt32(str[1]);
 			UIManager.instance.FriendGameOver ();
 		} else if (str [2].ToString () == "2") {
-            InputHandler.instance.AcknowledgementByServer();
+			InputHandler.instance.AcknowledgementByServer(Convert.ToInt32 (str [2].ToString ()));
 		} else if (str [2].ToString () == "3") {
 			UIManager.instance.OnGameStartOnServer ();
 		}

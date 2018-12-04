@@ -75,9 +75,12 @@ public class InputHandler : MonoBehaviour {
 
     }
 
-    public void AcknowledgementByServer()
+	public void AcknowledgementByServer(int packetID)
     {
 		if (myCurrTurnInput.Count > 0) {
+			InputPacket ip = myCurrTurnInput.Peek();
+			if (ip.packetID == packetID) {
+			}
 			myCurrTurnInput.Dequeue();
 			StartCoroutine("WaitAndSendData");
 		}
