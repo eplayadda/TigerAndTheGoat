@@ -40,7 +40,7 @@ public class ConnectionManager : MonoBehaviour
     public bool isIamLive;
     public bool isFriendLive;
     public bool isMutiplayerPlaying;
-	int recivedPacketID;
+	List<int> recivedPacketID = new List<int>();
     public enum SignalRConectionStatus
 	{
 		None = 0,
@@ -291,6 +291,7 @@ public class ConnectionManager : MonoBehaviour
 
 	public void OnServerGameStart ()
 	{
+		recivedPacketID.Clear ();
 		inputData.Clear ();
 		inputData.Add (friedID);
 		inputData.Add ("");
@@ -338,12 +339,12 @@ public class ConnectionManager : MonoBehaviour
 				string[] packet = str [1].ToString ().Split(' ');
 				int a = Convert.ToInt32 (packet[0]);
 				int packetID = Convert.ToInt32 (packet [1]);
-				if (recivedPacketID != packetID) {
+				Debug.Log (recivedPacketID.Contains(packetID) + " packet ID "+packetID);
+				if (!recivedPacketID.Contains(packetID)) {
 					InputHandler.instance.OnInputTakenBYServer (a);
-					recivedPacketID = packetID;
+					recivedPacketID.Add(packetID);
 					Debug.Log (a + " ");
 				}
-				Debug.Log (recivedPacketID + " packet ID "+packetID);
 				DataRecivedACK(packetID);
 
 			}
@@ -352,7 +353,7 @@ public class ConnectionManager : MonoBehaviour
 			//int a = Convert.ToInt32(str[1]);
 			UIManager.instance.FriendGameOver ();
 		} else if (str [2].ToString () == "2") {
-			InputHandler.instance.AcknowledgementByServer(Convert.ToInt32 (str [2].ToString ()));
+			InputHandler.instance.AcknowledgementByServer(Convert.ToInt32 (str [1].ToString ()));
 		} else if (str [2].ToString () == "3") {
 			UIManager.instance.OnGameStartOnServer ();
 		}
