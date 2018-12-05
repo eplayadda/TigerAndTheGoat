@@ -39,6 +39,7 @@ public class InputHandler : MonoBehaviour {
         BordManager.instace.OnInputByUser(pData);
 		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer)
         {
+			
             Debug.Log("Input By User "+pData);
 			tokenID++;
 			InputPacket ip = new InputPacket (tokenID,pData);
@@ -77,14 +78,16 @@ public class InputHandler : MonoBehaviour {
 
 	public void AcknowledgementByServer(int packetID)
     {
+		tryCount = 0;
 		if (myCurrTurnInput.Count > 0) {
 			InputPacket ip = myCurrTurnInput.Peek();
 			if (ip.packetID == packetID) {
+				myCurrTurnInput.Dequeue();
+				StopCoroutine("WaitAndSendData");
+				StartCoroutine("WaitAndSendData");
 			}
-			myCurrTurnInput.Dequeue();
-			StartCoroutine("WaitAndSendData");
+			Debug.Log(ip.packetID+" "+packetID+"AcknowledgementByServer" + myCurrTurnInput.Count);
 		}
-        Debug.Log("AcknowledgementByServer" + myCurrTurnInput.Count);
 
     }
 
@@ -111,7 +114,7 @@ public class InputHandler : MonoBehaviour {
                 FriendNetStatus();
             }
         }
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(1f);
         StartCoroutine("WaitAndSendData");
     }
 
