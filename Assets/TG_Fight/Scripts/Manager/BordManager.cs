@@ -335,7 +335,7 @@ public class BordManager : MonoBehaviour
 					    (branchTg.firstLayerNode.currNodeHolder == eNodeHolder.none ||
 					    (branchTg.firstLayerNode.currNodeHolder == eNodeHolder.goat &&
 					    branchTg.secondLayerNode != null &&
-						branchTg.secondLayerNode.currNodeHolder!= null))) {
+						branchTg.secondLayerNode.currNodeHolder!= eNodeHolder.none))) {
 						isAbvl = true;
 						break;
 					}
