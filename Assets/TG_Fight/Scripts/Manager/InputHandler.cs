@@ -114,7 +114,7 @@ public class InputHandler : MonoBehaviour {
                 FriendNetStatus();
             }
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.1f);
         StartCoroutine("WaitAndSendData");
     }
 
