@@ -331,14 +331,10 @@ public class BordManager : MonoBehaviour
 		foreach (TGNode item in allTgNodes) {
 			if (item.currNodeHolder == eNodeHolder.tiger) {
 				foreach (BranchTGNode branchTg in item.branchTgNodes) {
-					if (branchTg.firstLayerNode != null &&
-					    (branchTg.firstLayerNode.currNodeHolder == eNodeHolder.none ||
-					    (branchTg.firstLayerNode.currNodeHolder == eNodeHolder.goat &&
-					    branchTg.secondLayerNode != null &&
-						branchTg.secondLayerNode.currNodeHolder!= eNodeHolder.none))) {
+					if (branchTg.firstLayerNode != null && branchTg.firstLayerNode.currNodeHolder == eNodeHolder.none)
 						isAbvl = true;
-						break;
-					}
+					if (branchTg.secondLayerNode != null && branchTg.secondLayerNode.currNodeHolder == eNodeHolder.none && branchTg.firstLayerNode.currNodeHolder == eNodeHolder.goat)
+						isAbvl = true;
 				}
 			}
 		}
