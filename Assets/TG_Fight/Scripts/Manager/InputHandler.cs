@@ -93,7 +93,7 @@ public class InputHandler : MonoBehaviour {
 
     IEnumerator WaitAndSendData()
     {
-        ConnectionManager.Instance.isFriendLive = false;
+       // ConnectionManager.Instance.isFriendLive = false;
         if (myCurrTurnInput.Count <= 0)
         {
             tryCount = 0;
