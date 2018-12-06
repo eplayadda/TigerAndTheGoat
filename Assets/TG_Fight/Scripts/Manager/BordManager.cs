@@ -172,7 +172,9 @@ public class BordManager : MonoBehaviour
 
 			
 			}
+			Debug.Log ("Check gamme over for tiger-------------------------->>>>");
 			if (!IsTigerMoveAlv ()) {
+				Debug.Log (" gamme over -----------------------tiger nomove--->>>>");
 				currWinStatus = eWinStatus.goat;
 				UIManager.instance.OnGameOver ();
 			}
