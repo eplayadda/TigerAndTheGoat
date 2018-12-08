@@ -107,7 +107,9 @@ public class UIManager : MonoBehaviour
 
 	public void OnGameOver ()
 	{
-		
+		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer) {
+			ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.myID);
+		}
 		Invoke ("GameOverInvoke", 1f);
 
 	}
@@ -115,9 +117,7 @@ public class UIManager : MonoBehaviour
 	void GameOverInvoke ()
 	{
 		gameOverUI.gameObject.SetActive (true);
-		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer) {
-			ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.myID);
-		}
+
 	}
 
 	public void DisableAllUI ()
