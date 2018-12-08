@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
 
 	public void FriendGameOver ()
 	{
-		if(GameManager.instance.currGameStatus == eGameStatus.gameover)
+		if(GameManager.instance.currGameStatus != eGameStatus.gameover)
 			OnDicliend ();
 		Debug.Log ("Friend Game Quit");
 	}
@@ -109,14 +109,15 @@ public class UIManager : MonoBehaviour
 	{
 		
 		Invoke ("GameOverInvoke", 1f);
-		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer) {
-			ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.myID);
-		}
+
 	}
 
 	void GameOverInvoke ()
 	{
 		gameOverUI.gameObject.SetActive (true);
+		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer) {
+			ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.myID);
+		}
 	}
 
 	public void DisableAllUI ()
