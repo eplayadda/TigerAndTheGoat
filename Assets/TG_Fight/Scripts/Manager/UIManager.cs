@@ -100,6 +100,7 @@ public class UIManager : MonoBehaviour
 
 	public void FriendGameOver ()
 	{
+		if(GameManager.instance.currGameStatus != eGameStatus.gameover)
 		OnDicliend ();
 		Debug.Log ("Friend Game Quit");
 	}
