@@ -106,6 +106,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnGameOver ()
 	{
+		ConnectionManager.Instance.isMutiplayerPlaying = false;
 		Invoke ("GameOverInvoke", 1f);
 	}
 
