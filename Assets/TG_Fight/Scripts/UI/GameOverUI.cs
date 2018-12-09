@@ -25,11 +25,11 @@ public class GameOverUI : MonoBehaviour
 		uiManager = UIManager.instance;
 		winnerLogo.GetComponent<Image> ().sprite = winnerSprites [(int)GameManager.instance.myAnimalType - 1];
 		if (BordManager.instace.currWinStatus == BordManager.eWinStatus.tiger) {
-			GameManager.instance.currGameStatus = eGameStatus.gameover;
+			//GameManager.instance.currGameStatus = eGameStatus.gameover;
 			msgTxt.text = "Tiger Win The Game";
 		} else {
 			
-			GameManager.instance.currGameStatus = eGameStatus.gameover;	
+			//GameManager.instance.currGameStatus = eGameStatus.gameover;	
 			msgTxt.text = "Goat Win The Game";
 		}
 		GameResult ();
