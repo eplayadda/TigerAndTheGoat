@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
 	private bool isTutorialDone = false;
 
 	private float tutorialDelay = 5.0f;
-
+	bool gameOverLocal;
 	void Awake ()
 	{
 		if (instance == null)
@@ -100,13 +100,14 @@ public class UIManager : MonoBehaviour
 
 	public void FriendGameOver ()
 	{
-		if(GameManager.instance.currGameStatus != eGameStatus.gameover)
+		if(!gameOverLocal)
 			OnDicliend ();
 		Debug.Log ("Friend Game Quit");
 	}
 
 	public void OnGameOver ()
 	{
+		gameOverLocal = true;
 		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer) {
 			ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.myID);
 		}
@@ -140,6 +141,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnSendRequest (int price, int type, string pName)
 	{
+		gameOverLocal = false;
 		Debug.Log (">>>>>>>>>>>>>>>>>>>>>>>." + pName);
 		inviteUI.playerNameTxt.text = pName;
 
@@ -157,6 +159,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnChallangeAccepted (int a)
 	{
+		gameOverLocal = false;
 		gamePlayUI.OnServerPlayerAccepted (a);
 	}
 
