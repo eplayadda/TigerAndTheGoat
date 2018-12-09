@@ -120,7 +120,6 @@ public class UIManager : MonoBehaviour
 	{
 		gameOverUI.gameObject.SetActive (true);
 		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer ) {
-			ConnectionManager.Instance.friedID = "";
 			ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.myID);
 		}
 	}
