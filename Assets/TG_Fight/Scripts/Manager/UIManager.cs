@@ -111,6 +111,7 @@ public class UIManager : MonoBehaviour
 	{
 		gameOverLocal = true;
 		GameManager.instance.currGameStatus = eGameStatus.gameover;	
+
 		Invoke ("GameOverInvoke", 1f);
 
 	}
