@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
 
 	public void FriendGameOver ()
 	{
-		if(!gameOverLocal)
+		//if(!gameOverLocal)
 			OnDicliend ();
 		Debug.Log ("Friend Game Quit");
 	}
