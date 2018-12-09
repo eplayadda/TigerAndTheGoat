@@ -103,7 +103,7 @@ public class UIManager : MonoBehaviour
 		if (!gameOverLocal) {
 			OnDicliend ();
 		}
-		GameManager.instance.currGameStatus = eGameStatus.gameover;	
+		//GameManager.instance.currGameStatus = eGameStatus.gameover;	
 		Debug.Log ("Friend Game Quit");
 	}
 
