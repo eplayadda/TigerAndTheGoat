@@ -301,7 +301,7 @@ public class ConnectionManager : MonoBehaviour
 
 	public void OnSendMeAnswer (string ansCount)
 	{
-		if (GameManager.instance.currGameStatus == eGameStatus.gameover)
+		if (UIManager.instance.gameOverLocal == true)
 			return;
 		inputData.Clear ();
 		inputData.Add (friedID);
@@ -322,7 +322,7 @@ public class ConnectionManager : MonoBehaviour
 	}
 	void DataRecivedACK(int packetID)
     {
-		if (GameManager.instance.currGameStatus == eGameStatus.gameover)
+		if (UIManager.instance.gameOverLocal == true)
 			return;
         inputData.Clear();
         inputData.Add(friedID);
