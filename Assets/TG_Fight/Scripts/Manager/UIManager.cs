@@ -110,7 +110,7 @@ public class UIManager : MonoBehaviour
 	public void OnGameOver ()
 	{
 		gameOverLocal = true;
-		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer ) {
+		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer && GameManager.instance.currPlayerIdentity == ePlayerIdentity.host) {
 			ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.myID);
 		}
 		Invoke ("GameOverInvoke", 1f);
