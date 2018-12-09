@@ -111,7 +111,7 @@ public class UIManager : MonoBehaviour
 	{
 		gameOverLocal = true;
 		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer ) {
-			ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.friedID);
+			ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.myID);
 		}
 		Invoke ("GameOverInvoke", 1f);
 
