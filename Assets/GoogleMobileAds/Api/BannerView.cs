@@ -34,7 +34,7 @@ namespace GoogleMobileAds.Api
             this.client = (IBannerClient)method.Invoke(null, null);
             client.CreateBannerView(adUnitId, adSize, position);
 
-            configureBannerEvents();
+            ConfigureBannerEvents();
         }
 
         // Creates a BannerView with a custom position.
@@ -48,7 +48,7 @@ namespace GoogleMobileAds.Api
             this.client = (IBannerClient)method.Invoke(null, null);
             client.CreateBannerView(adUnitId, adSize, x, y);
 
-            configureBannerEvents();
+            ConfigureBannerEvents();
         }
 
         // These are the ad callback events that can be hooked into.
@@ -86,7 +86,31 @@ namespace GoogleMobileAds.Api
             client.DestroyBannerView();
         }
 
-        private void configureBannerEvents()
+        // Returns the height of the BannerView in pixels.
+        public float GetHeightInPixels()
+        {
+            return client.GetHeightInPixels();
+        }
+
+        // Returns the width of the BannerView in pixels.
+        public float GetWidthInPixels()
+        {
+            return client.GetWidthInPixels();
+        }
+
+        // Set the position of the BannerView using standard position.
+        public void SetPosition(AdPosition adPosition)
+        {
+            client.SetPosition(adPosition);
+        }
+
+        // Set the position of the BannerView using custom position.
+        public void SetPosition(int x, int y)
+        {
+            client.SetPosition(x, y);
+        }
+
+        private void ConfigureBannerEvents()
         {
             this.client.OnAdLoaded += (sender, args) =>
             {
@@ -127,6 +151,12 @@ namespace GoogleMobileAds.Api
                     this.OnAdLeavingApplication(this, args);
                 }
             };
+        }
+
+        // Returns the mediation adapter class name.
+        public string MediationAdapterClassName()
+        {
+            return this.client.MediationAdapterClassName();
         }
     }
 }
