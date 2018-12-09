@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
 	private bool isTutorialDone = false;
 
 	private float tutorialDelay = 5.0f;
-	bool gameOverLocal;
+	public bool gameOverLocal;
 	void Awake ()
 	{
 		if (instance == null)
