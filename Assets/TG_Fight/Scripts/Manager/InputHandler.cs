@@ -99,7 +99,8 @@ public class InputHandler : MonoBehaviour {
             tryCount = 0;
             StopCoroutine("WaitAndSendData");
             ConnectionManager.Instance.isFriendLive = true;
-			ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.myID);
+			if(UIManager.instance.gameOverLocal)
+				ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.myID);
 
 			yield break;
            // ConnectionManager.Instance.connectionMsg.text = "";
