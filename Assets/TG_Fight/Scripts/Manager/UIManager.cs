@@ -203,9 +203,17 @@ public class UIManager : MonoBehaviour
 		internetCheckPanel.transform.localScale = Vector3.zero;
 	}
 
-	public void DisplayTutorial ()
+    public void CloseTutorial()
+    {
+        Debug.Log(GameManager.instance.showTutorial + "??????????????");
+
+        tutorialParent.SetActive(false);
+    }
+    public void DisplayTutorial ()
 	{
 		if (GameManager.instance.showTutorial) {
+            tutorialParent.SetActive(true);
+            return;
 			isTutorialDone = false;
 			tutorialParent.SetActive (true);
 			tutorialLeft.SetActive (true);
@@ -225,6 +233,7 @@ public class UIManager : MonoBehaviour
 
 	private void TutorialReset ()
 	{
+        return;
 		tutorialParent.SetActive (false);
 		tutorialLeft.SetActive (false);
 		tutorialRight.SetActive (false);

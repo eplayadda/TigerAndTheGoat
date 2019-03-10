@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
 
 	void Start ()
 	{
+        //PlayerPrefs.DeleteAll();
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		GameAllow ();
 	}
@@ -118,6 +119,11 @@ public class GameManager : MonoBehaviour
     public bool isAllowPlay = true;
 	void GameAllow ()
 	{
+        if (PlayerPrefs.GetInt("TutorialInit", 0) == 0)
+        {
+            PlayerPrefs.SetInt("Tutorials", 1);
+            PlayerPrefs.SetInt("TutorialInit",1);
+        }
 		if (PlayerPrefs.GetInt ("Tutorials") == 1) {
 			_toggleTutorial.isOn = true;
 			showTutorial = true;

@@ -56,7 +56,6 @@ public class ConnectionManager : MonoBehaviour
     
     void Awake ()
 	{
-        PlayerPrefs.DeleteAll();
 		if (Instance == null) {
 			Instance = this;
 			DontDestroyOnLoad (this.gameObject);
