@@ -29,11 +29,11 @@ public class TGNode : MonoBehaviour
 		if (currNodeHolder == eNodeHolder.goat) {
 			nodeHolderSprint.sprite = BordManager.instace.goatTexture;
 			nodeHolderSprint.enabled = true;
-            nodeHolderSprint.transform.localScale = new Vector3(1.2f,1.2f,1.2f);
+            nodeHolderSprint.transform.localScale = new Vector3(1.8f,1.8f,1.8f);
 		} else if (currNodeHolder == eNodeHolder.tiger) {
 			nodeHolderSprint.enabled = true;
 			nodeHolderSprint.sprite = BordManager.instace.tigerTexture;
-            nodeHolderSprint.transform.localScale = new Vector3(1f, 1f, 1f);
+            nodeHolderSprint.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
         }
         else {
 			nodeHolderSprint.enabled = false;

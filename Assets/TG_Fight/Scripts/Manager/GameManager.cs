@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
 
 	void Start ()
 	{
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		GameAllow ();
 	}
