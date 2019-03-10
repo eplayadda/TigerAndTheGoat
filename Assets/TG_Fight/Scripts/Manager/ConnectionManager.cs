@@ -41,6 +41,7 @@ public class ConnectionManager : MonoBehaviour
     public bool isFriendLive;
     public bool isMutiplayerPlaying;
 	List<int> recivedPacketID = new List<int>();
+    public int friendCount;
     public enum SignalRConectionStatus
 	{
 		None = 0,
@@ -371,6 +372,7 @@ public class ConnectionManager : MonoBehaviour
         //        UIManager.instance.OnSignalRConnected ();
         object[] str = msg.Arguments[0] as object[];
         Debug.Log(str.Length);
+        friendCount = str.Length;
         for (int i = 0; i < str.Length; i++)
         {
 
@@ -395,7 +397,11 @@ public class ConnectionManager : MonoBehaviour
       //  signalRConnection[HUB_NAME].Call("InsertOnSignalData", new List<string>() { "FB_55000", "S5_6000", "30", "3", "3" });
        // signalRConnection[HUB_NAME].Call("UpdateScore", new List<string>() { "FB_55000", "S5_5000", "3022", "5553", "3" });
         signalRConnection[HUB_NAME].Call("GetOneSignalID", "FB_55000");
-        Debug.Log("+++++++++++++++++++Inserdata");
+        Debug.Log("+++++++++++++++++++Inserdata"+ friendCount);
+        if (friendCount == 1)
+        {
+            Debug.Log("Count Is Zero........");
+        }
     }
 
 }

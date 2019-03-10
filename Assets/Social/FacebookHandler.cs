@@ -139,6 +139,7 @@ public class FacebookHandler : MonoBehaviour
 
     public void LoadFriends()
     {
+        loadingPanel.GetComponent<Text>().text = "Loading....";
         loadingPanel.SetActive(true);
     }
     private void LoginForFriendsList ()
@@ -161,7 +162,11 @@ public class FacebookHandler : MonoBehaviour
 	void GetFriendAsGuest ()
 	{
 		DestroyFriendsList ();
-        loadingPanel.SetActive(false);
+        if (ConnectionManager.Instance.friendCount == 1)
+            loadingPanel.GetComponent<Text>().text = "Not one Online";
+
+        else
+            loadingPanel.SetActive(false);
 
 
         List<string> onlyGuest = new List<string> ();
@@ -205,7 +210,10 @@ public class FacebookHandler : MonoBehaviour
 
 	void GetFreindCallback (IResult result)
 	{
-        loadingPanel.SetActive(false);
+        if (ConnectionManager.Instance.friendCount == 1)
+            loadingPanel.GetComponent<Text>().text = "Not one Online";
+        else
+            loadingPanel.SetActive(false);
         DestroyFriendsList();
 		if (GameManager.instance.isRandomPlayer)
 			GetFriendAsGuest ();
