@@ -31,9 +31,12 @@ public class FacebookHandler : MonoBehaviour
 	}
 
 	public void mStart ()
-	{ 
-		int loginValue = PlayerPrefs.GetInt ("IsFbLogedIn");
-		if (loginValue == 1) {
+	{
+        int loginValue = 0;
+#if UNITY_ANDROID
+         loginValue = PlayerPrefs.GetInt ("IsFbLogedIn");
+#endif
+        if (loginValue == 1) {
 			UIManager.instance.loginPanel.SetActive (false);
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 		}
@@ -111,7 +114,9 @@ public class FacebookHandler : MonoBehaviour
 			ConnectionManager.Instance.myID = userId;
 			//debugText.text += "\n" + userId;
 			UserProfile ();
-			PlayerPrefs.SetInt ("IsFbLogedIn", 1);
+#if UNITY_ANDROID && !UNITY_EDITOR
+            PlayerPrefs.SetInt ("IsFbLogedIn", 1);
+#endif
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 			UIManager.instance.loginPanel.SetActive (false);
 			ConnectionManager.Instance.MakeConnection ();
@@ -139,7 +144,6 @@ public class FacebookHandler : MonoBehaviour
 
     public void LoadFriends()
     {
-        loadingPanel.GetComponent<Text>().text = "Loading....";
         loadingPanel.SetActive(true);
     }
     private void LoginForFriendsList ()
@@ -162,11 +166,7 @@ public class FacebookHandler : MonoBehaviour
 	void GetFriendAsGuest ()
 	{
 		DestroyFriendsList ();
-        if (ConnectionManager.Instance.friendCount == 1)
-            loadingPanel.GetComponent<Text>().text = "Not one Online";
-
-        else
-            loadingPanel.SetActive(false);
+        loadingPanel.SetActive(false);
 
 
         List<string> onlyGuest = new List<string> ();
@@ -210,67 +210,73 @@ public class FacebookHandler : MonoBehaviour
 
 	void GetFreindCallback (IResult result)
 	{
-        if (ConnectionManager.Instance.friendCount == 1)
-            loadingPanel.GetComponent<Text>().text = "Not one Online";
-        else
-            loadingPanel.SetActive(false);
+        loadingPanel.SetActive(false);
         DestroyFriendsList();
 		if (GameManager.instance.isRandomPlayer)
 			GetFriendAsGuest ();
 		string resposne = result.RawResult;
 		Debug.Log (resposne);
 		var data = (Dictionary<string, object>)result.ResultDictionary;
-		var tagData = data ["friends"] as Dictionary<string,object>;
-		var resultData = tagData ["data"] as List<object>;
-		for (int i = 0; i < resultData.Count; i++) {
-			var resultValue = resultData [i] as Dictionary<string, object>;
-			var picture = resultValue ["picture"] as Dictionary<string ,object>;
-			var picData = picture ["data"] as Dictionary<string,object>;
-			string url = picData ["url"].ToString ();
-			Debug.Log ("url : " + url);
-			GameObject g = Instantiate (FriendPrefab) as GameObject;
-			g.SetActive (true);
-			g.transform.SetParent (parentObject);
-			g.transform.localScale = Vector3.one;
-			g.transform.position = Vector3.zero;
-			FriendsObjectList.Add (g);
-			string name = resultValue ["name"].ToString ();
-			g.GetComponent<FriendsDetails> ().Name.text = name;
-			Toggle btn = g.GetComponentInChildren<Toggle> ();
-			btn.group = toggleGroup;
-			Debug.Log (resultValue ["name"].ToString () + "  , " + resultValue ["id"].ToString ());
-			string id = resultValue ["id"].ToString ();
-			g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
-			AddListener (btn, id, name);
-            int userID = OnlineUser.IsContains(id);
-          
-            if (userID >= 0)
+        if (data.ContainsKey("friends"))
+        {
+            var tagData = data["friends"] as Dictionary<string, object>;
+            var resultData = tagData["data"] as List<object>;
+            for (int i = 0; i < resultData.Count; i++)
             {
-                g.GetComponent<FriendsDetails>().SetOnline(true);
-                if (OnlineUser.users[userID].isPlaying)
-                    g.GetComponent<FriendsDetails>().playing.SetActive(true);
+                var resultValue = resultData[i] as Dictionary<string, object>;
+                var picture = resultValue["picture"] as Dictionary<string, object>;
+                var picData = picture["data"] as Dictionary<string, object>;
+                string url = picData["url"].ToString();
+                Debug.Log("url : " + url);
+                GameObject g = Instantiate(FriendPrefab) as GameObject;
+                g.SetActive(true);
+                g.transform.SetParent(parentObject);
+                g.transform.localScale = Vector3.one;
+                g.transform.position = Vector3.zero;
+                FriendsObjectList.Add(g);
+                string name = resultValue["name"].ToString();
+                g.GetComponent<FriendsDetails>().Name.text = name;
+                Toggle btn = g.GetComponentInChildren<Toggle>();
+                btn.group = toggleGroup;
+                Debug.Log(resultValue["name"].ToString() + "  , " + resultValue["id"].ToString());
+                string id = resultValue["id"].ToString();
+                g.GetComponent<FriendsDetails>().ID = System.Convert.ToInt64(id);
+                AddListener(btn, id, name);
+                int userID = OnlineUser.IsContains(id);
+
+                if (userID >= 0)
+                {
+                    g.GetComponent<FriendsDetails>().SetOnline(true);
+                    if (OnlineUser.users[userID].isPlaying)
+                        g.GetComponent<FriendsDetails>().playing.SetActive(true);
+                    else
+                        g.GetComponent<FriendsDetails>().playing.SetActive(false);
+                }
                 else
+                {
+                    g.GetComponent<FriendsDetails>().SetOnline(false);
                     g.GetComponent<FriendsDetails>().playing.SetActive(false);
-            }
-            else
-            {
-                g.GetComponent<FriendsDetails>().SetOnline(false);
-                g.GetComponent<FriendsDetails>().playing.SetActive(false);
 
-            }
-            if (!string.IsNullOrEmpty (id)) {
-				FB.API ("https" + "://graph.facebook.com/" + id + "/picture?width=128&height=128", HttpMethod.GET, delegate(IGraphResult avatarResult) {
-					if (avatarResult.Error != null) {
-						Debug.Log (avatarResult.Error);
-					} else {
+                }
+                if (!string.IsNullOrEmpty(id))
+                {
+                    FB.API("https" + "://graph.facebook.com/" + id + "/picture?width=128&height=128", HttpMethod.GET, delegate (IGraphResult avatarResult)
+                    {
+                        if (avatarResult.Error != null)
+                        {
+                            Debug.Log(avatarResult.Error);
+                        }
+                        else
+                        {
 
-						g.GetComponent<FriendsDetails> ().ProfilePic.sprite = Sprite.Create (avatarResult.Texture, new Rect (0, 0, 128, 128), new Vector2 (0.5f, 0.5f));
-						;
-					}
-				});
-			}
-			isFrndsAvials = true;
-		}
+                            g.GetComponent<FriendsDetails>().ProfilePic.sprite = Sprite.Create(avatarResult.Texture, new Rect(0, 0, 128, 128), new Vector2(0.5f, 0.5f));
+                            ;
+                        }
+                    });
+                }
+                isFrndsAvials = true;
+            }
+        }
 	}
 
 	private void DestroyFriendsList ()
