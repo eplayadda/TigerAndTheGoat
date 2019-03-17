@@ -20,9 +20,8 @@ public class AdsHandler : MonoBehaviour
         
 		if (Instance == null)
 			Instance = this;
-        //RequestBannerMenuPage ();
-        //RequestBannerPausePage ();
-        //RequestVideoAds ();
+        RequestBannerMenuPage ();
+        RequestVideoAds ();
         //RequestRewardedVideoAds ();
 	}
 	// Use this for initialization
@@ -30,7 +29,6 @@ public class AdsHandler : MonoBehaviour
 	{
         RequestInterstitialPause();
         RequestInterstitialMainMenu();
-
     }
 
     public void RequestBannerMenuPage ()
@@ -39,7 +37,7 @@ public class AdsHandler : MonoBehaviour
 #if UNITY_EDITOR
         adUnitId = "unused";
 #elif UNITY_ANDROID
-		adUnitId = "ca-app-pub-1224519388650129/3670556784";
+		adUnitId = "ca-app-pub-1224519388650129/2228742206";
 
 #elif UNITY_IPHONE
 		adUnitId = "INSERT_IOS_BANNER_AD_UNIT_ID_HERE";
@@ -54,27 +52,6 @@ public class AdsHandler : MonoBehaviour
 		bannerViewMenuPage.LoadAd (request);
 	}
 
-	public void RequestBannerPausePage ()
-	{
-        string adUnitId;
-#if UNITY_EDITOR
-        adUnitId = "unused";
-#elif UNITY_ANDROID
-		adUnitId = "ca-app-pub-1224519388650129/1133035115";
-
-#elif UNITY_IPHONE
-		adUnitId = "INSERT_IOS_BANNER_AD_UNIT_ID_HERE";
-
-#else
-		adUnitId = "unexpected_platform";
-#endif
-        bannerViewPausePage = new BannerView (adUnitId, AdSize.Banner, AdPosition.Bottom);
-		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
-		//AdRequest request = new AdRequest.Builder ().Build ();
-		// Load the banner with the request.
-		bannerViewPausePage.LoadAd (request);
-	}
-
 	public void RequestInterstitialPause ()
 	{
         string adUnitId;
@@ -82,7 +59,7 @@ public class AdsHandler : MonoBehaviour
 #if UNITY_EDITOR
         adUnitId = "unused";
 #elif UNITY_ANDROID
-		adUnitId = "ca-app-pub-1224519388650129/7665979716";
+		adUnitId = "ca-app-pub-1224519388650129/4166470712";
 
 #elif UNITY_IPHONE
 		adUnitId = "INSERT_IOS_BANNER_AD_UNIT_ID_HERE";
@@ -105,7 +82,7 @@ public class AdsHandler : MonoBehaviour
         adUnitId = "unused";
 
 #elif UNITY_ANDROID
-		adUnitId = "ca-app-pub-1224519388650129/5632032682";
+		adUnitId = "ca-app-pub-1224519388650129/1377312384";
 
 #elif UNITY_IPHONE
 		adUnitId = "INSERT_IOS_BANNER_AD_UNIT_ID_HERE";
@@ -158,7 +135,7 @@ public class AdsHandler : MonoBehaviour
 #if UNITY_EDITOR
         adUnitId = "unused";
 #elif UNITY_ANDROID
-		adUnitId = "ca-app-pub-1224519388650129/8867043142";
+		adUnitId = "ca-app-pub-1224519388650129/5668567727";
 
 #elif UNITY_IPHONE
 		adUnitId = "INSERT_IOS_BANNER_AD_UNIT_ID_HERE";
@@ -200,12 +177,12 @@ public class AdsHandler : MonoBehaviour
 //			return;
 //		Debug.Log ("Rewarded");
 //		InputHandler.instance.GameStartAfterReward ();
-//		RequestRewardedVideoAds ();
+		RequestRewardedVideoAds ();
 	}
 
 	public void ShowBannerAdsMenuPage ()
 	{
-		Debug.Log ("showMenu");
+		Debug.Log ("ShowBannerAdsMenuPage");
 		if (bannerViewMenuPage != null)
 			bannerViewMenuPage.Show ();
 	}
@@ -219,7 +196,7 @@ public class AdsHandler : MonoBehaviour
 
 	public void HideBannerAdsMenuPage ()
 	{
-		Debug.Log ("HideMenu");
+		Debug.Log ("HideBannerAdsMenuPage");
 		if (bannerViewMenuPage != null)
 			bannerViewMenuPage.Hide ();
 	}
@@ -231,16 +208,16 @@ public class AdsHandler : MonoBehaviour
 			bannerViewPausePage.Hide ();
 	}
 
-	public void ShowInterstitialAds ()
+	public void ShowInterstitialMenuAds ()
 	{
-        Debug.Log("Add Loaded : "+interstitialMainMenu.IsLoaded());
+		Debug.Log("ShowInterstitialMenuAds  Add Loaded : "+interstitialMainMenu.IsLoaded());
 		if (interstitialMainMenu.IsLoaded ())
             interstitialMainMenu.Show ();
 	}
 
     public void ShowInterstitialPauseAds()
     {
-        Debug.Log("Add Loaded : " + interstitialPause.IsLoaded());
+		Debug.Log("ShowInterstitialPauseAds Add Loaded : " + interstitialPause.IsLoaded());
         if (interstitialPause.IsLoaded())
             interstitialPause.Show();
     }

@@ -140,6 +140,7 @@ public class MainMenuUI : MonoBehaviour
 				//UIManager.instance.NoINternetDisplay ();
 			}
 		}
+		AdsHandler.Instance.ShowInterstitialMenuAds ();
 	}
 
 	public void OnClickWhatsAppShare ()
@@ -200,6 +201,7 @@ public class MainMenuUI : MonoBehaviour
 		isSettingOn = true;
 		settingPanle.SetActive (true);
 		UIAnimationController.Instance.SettingPanelAnimation (settingPanle, 0);
+		AdsHandler.Instance.ShowInterstitialPauseAds ();
 	}
 
 
@@ -209,6 +211,7 @@ public class MainMenuUI : MonoBehaviour
 
 		isSettingOn = false;
 		UIAnimationController.Instance.SettingPanelAnimation (settingPanle, settingEndPos.localPosition.x);
+		AdsHandler.Instance.ShowBannerAdsMenuPage ();
 	}
 
 	public void SettingAnimationCallback ()

@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
 	void LoadingDisable ()
 	{
 		panelLoading.SetActive (false);
+		loginPanel.SetActive (true);
 		SocialManager.Instance.facebookManager.mStart ();
 		TutorialReset ();
 		AdsHandler.Instance.ShowBannerAdsMenuPage ();
@@ -72,6 +73,7 @@ public class UIManager : MonoBehaviour
 				}
 				if (GameManager.instance.currGameStatus == eGameStatus.pause) {
 					pauseMenuUI.OnClickResume ();
+					AdsHandler.Instance.ShowInterstitialPauseAds ();
 				
 				}
 				if (GameManager.instance.currGameStatus == eGameStatus.setting) {
@@ -118,6 +120,7 @@ public class UIManager : MonoBehaviour
 
 	void GameOverInvoke ()
 	{
+		AdsHandler.Instance.ShowVideoAds ();
 		gameOverUI.gameObject.SetActive (true);
 		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer ) {
 			ConnectionManager.Instance.OnGameOverSendData (ConnectionManager.Instance.myID);
