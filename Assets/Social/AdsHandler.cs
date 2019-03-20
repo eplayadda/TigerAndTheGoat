@@ -5,34 +5,34 @@ using GoogleMobileAds.Api;
 
 public class AdsHandler : MonoBehaviour
 {
-    public static AdsHandler Instance;
+	public static AdsHandler Instance;
 
     BannerView bannerViewMenuPage;
-    BannerView bannerViewPausePage;
-    InterstitialAd interstitialPause;
-    InterstitialAd interstitialMainMenu;
+	BannerView bannerViewPausePage;
+	InterstitialAd interstitialPause;
+	InterstitialAd interstitialMainMenu;
     RewardBasedVideoAd rewardVideoAds;
-    RewardBasedVideoAd rewardBasedVideoAds;
-    private string testDeviceId = "6EEC9FCA858EF9B40DC6BCA19FD51036";
+	RewardBasedVideoAd rewardBasedVideoAds;
+	private string testDeviceId = "6EEC9FCA858EF9B40DC6BCA19FD51036";
 
-    void Awake()
-    {
-
-        if (Instance == null)
-            Instance = this;
-        RequestBannerMenuPage();
-        RequestVideoAds();
+	void Awake ()
+	{
+        
+		if (Instance == null)
+			Instance = this;
+        RequestBannerMenuPage ();
+        RequestVideoAds ();
         //RequestRewardedVideoAds ();
-    }
-    // Use this for initialization
-    void Start()
-    {
+	}
+	// Use this for initialization
+	void Start ()
+	{
         RequestInterstitialPause();
         RequestInterstitialMainMenu();
     }
 
-    public void RequestBannerMenuPage()
-    {
+    public void RequestBannerMenuPage ()
+	{
         string adUnitId;
 #if UNITY_EDITOR
         adUnitId = "unused";
@@ -45,15 +45,15 @@ public class AdsHandler : MonoBehaviour
 #else
 		adUnitId = "unexpected_platform";
 #endif
-        bannerViewMenuPage = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
-        AdRequest request = new AdRequest.Builder().AddTestDevice(testDeviceId).Build();
-        //AdRequest request = new AdRequest.Builder ().Build ();
-        // Load the banner with the request.
-        bannerViewMenuPage.LoadAd(request);
-    }
+        bannerViewMenuPage = new BannerView (adUnitId, AdSize.Banner, AdPosition.Bottom);
+		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
+		//AdRequest request = new AdRequest.Builder ().Build ();
+		// Load the banner with the request.
+		bannerViewMenuPage.LoadAd (request);
+	}
 
-    public void RequestInterstitialPause()
-    {
+	public void RequestInterstitialPause ()
+	{
         string adUnitId;
 
 #if UNITY_EDITOR
@@ -67,12 +67,12 @@ public class AdsHandler : MonoBehaviour
 #else
 		adUnitId = "unexpected_platform";
 #endif
-        interstitialPause = new InterstitialAd(adUnitId);
-        AdRequest request = new AdRequest.Builder().AddTestDevice(testDeviceId).Build();
-        //AdRequest request = new AdRequest.Builder ().Build ();
-        // Load the interstitial with the request.
-        interstitialPause.LoadAd(request);
-    }
+        interstitialPause = new InterstitialAd (adUnitId);
+		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
+		//AdRequest request = new AdRequest.Builder ().Build ();
+		// Load the interstitial with the request.
+		interstitialPause.LoadAd (request);
+	}
 
     public void RequestInterstitialMainMenu()
     {
@@ -91,18 +91,18 @@ public class AdsHandler : MonoBehaviour
 		adUnitId = "unexpected_platform";
 #endif
         interstitialMainMenu = new InterstitialAd(adUnitId);
-        AdRequest request = new AdRequest.Builder().AddTestDevice(testDeviceId).Build();
+  		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
         //AdRequest request = new AdRequest.Builder().Build();
         // Load the interstitial with the request.
         interstitialMainMenu.LoadAd(request);
         interstitialMainMenu.OnAdFailedToLoad += InterstitialMainMenu_OnAdFailedToLoad;
         interstitialMainMenu.OnAdLoaded += Interstitial_OnAdLoaded;
-
+        
     }
 
     private void InterstitialMainMenu_OnAdFailedToLoad(object sender, AdFailedToLoadEventArgs e)
     {
-        Debug.Log("Faild To Load : >> " + e.ToString());
+        Debug.Log("Faild To Load : >> "+e.ToString());
     }
 
     //private void OnGUI()
@@ -128,8 +128,8 @@ public class AdsHandler : MonoBehaviour
         Debug.Log(sender.ToString() + " >>>   " + e.ToString());
     }
 
-    public void RequestVideoAds()
-    {
+    public void RequestVideoAds ()
+	{
         string adUnitId;
 
 #if UNITY_EDITOR
@@ -144,111 +144,110 @@ public class AdsHandler : MonoBehaviour
 		adUnitId = "unexpected_platform";
 #endif
         rewardVideoAds = RewardBasedVideoAd.Instance;
-        //		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
-        AdRequest request = new AdRequest.Builder().Build();
-        rewardVideoAds.LoadAd(request, adUnitId);
-    }
+//		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
+		AdRequest request = new AdRequest.Builder ().Build ();
+		rewardVideoAds.LoadAd (request, adUnitId);
+	}
 
-    public void RequestRewardedVideoAds()
+	public void RequestRewardedVideoAds ()
     {
         string adUnitId;
 
-#if UNITY_EDITOR
-        adUnitId = "unused";
-#elif UNITY_ANDROID
+		#if UNITY_EDITOR
+		adUnitId = "unused";
+		#elif UNITY_ANDROID
 		adUnitId = "ca-app-pub-1064698863475177/8118956696";
 
-#elif UNITY_IPHONE
+		#elif UNITY_IPHONE
 		adUnitId = "INSERT_IOS_BANNER_AD_UNIT_ID_HERE";
 
-#else
+		#else
 		adUnitId = "unexpected_platform";
-#endif
-        rewardBasedVideoAds = RewardBasedVideoAd.Instance;
-        //		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
-        AdRequest request = new AdRequest.Builder().Build();
-        rewardBasedVideoAds.LoadAd(request, adUnitId);
-        rewardBasedVideoAds.OnAdClosed += RewardVideoAds_OnAdClosed;
-    }
+		#endif
+		rewardBasedVideoAds = RewardBasedVideoAd.Instance;
+//		AdRequest request = new AdRequest.Builder ().AddTestDevice (testDeviceId).Build ();
+		AdRequest request = new AdRequest.Builder ().Build ();
+		rewardBasedVideoAds.LoadAd (request, adUnitId);
+		rewardBasedVideoAds.OnAdClosed += RewardVideoAds_OnAdClosed;
+	}
 
-    void RewardVideoAds_OnAdClosed(object sender, System.EventArgs e)
-    {
-        //		if (GameManager.instance.currentGameState == GameManager.eGameState.GameOver)
-        //			return;
-        //		Debug.Log ("Rewarded");
-        //		InputHandler.instance.GameStartAfterReward ();
-        RequestRewardedVideoAds();
-    }
+	void RewardVideoAds_OnAdClosed (object sender, System.EventArgs e)
+	{
+//		if (GameManager.instance.currentGameState == GameManager.eGameState.GameOver)
+//			return;
+//		Debug.Log ("Rewarded");
+//		InputHandler.instance.GameStartAfterReward ();
+		RequestRewardedVideoAds ();
+	}
 
-    public void ShowBannerAdsMenuPage()
-    {
-        Debug.Log("showMenu");
-        if (bannerViewMenuPage != null)
-            bannerViewMenuPage.Show();
-    }
+	public void ShowBannerAdsMenuPage ()
+	{
+		Debug.Log ("ShowBannerAdsMenuPage");
+		if (bannerViewMenuPage != null)
+			bannerViewMenuPage.Show ();
+	}
 
-    public void ShowBannerAdsPausePage()
-    {
-        Debug.Log("showPause");
-        if (bannerViewPausePage != null)
-            bannerViewPausePage.Show();
-    }
+	public void ShowBannerAdsPausePage ()
+	{
+		Debug.Log ("showPause");
+		if (bannerViewPausePage != null)
+			bannerViewPausePage.Show ();
+	}
 
-    public void HideBannerAdsMenuPage()
-    {
-        Debug.Log("HideMenu");
-        if (bannerViewMenuPage != null)
-            bannerViewMenuPage.Hide();
-    }
+	public void HideBannerAdsMenuPage ()
+	{
+		Debug.Log ("HideBannerAdsMenuPage");
+		if (bannerViewMenuPage != null)
+			bannerViewMenuPage.Hide ();
+	}
 
-    public void HideBannerAdsPausePage()
-    {
-        Debug.Log("HidePause");
-        if (bannerViewPausePage != null)
-            bannerViewPausePage.Hide();
-    }
+	public void HideBannerAdsPausePage ()
+	{
+		Debug.Log ("HidePause");
+		if (bannerViewPausePage != null)
+			bannerViewPausePage.Hide ();
+	}
 
-    public void ShowInterstitialAds()
-    {
-        Debug.Log("Add Loaded : " + interstitialMainMenu.IsLoaded());
-        if (interstitialMainMenu.IsLoaded())
-            interstitialMainMenu.Show();
-    }
+	public void ShowInterstitialMenuAds ()
+	{
+		Debug.Log("ShowInterstitialMenuAds  Add Loaded : "+interstitialMainMenu.IsLoaded());
+		if (interstitialMainMenu.IsLoaded ())
+            interstitialMainMenu.Show ();
+	}
 
     public void ShowInterstitialPauseAds()
     {
-        Debug.Log("Add Loaded : " + interstitialPause.IsLoaded());
+		Debug.Log("ShowInterstitialPauseAds Add Loaded : " + interstitialPause.IsLoaded());
         if (interstitialPause.IsLoaded())
             interstitialPause.Show();
     }
 
-    public void ShowVideoAds()
-    {
-        if (rewardVideoAds.IsLoaded())
-        {
-            rewardVideoAds.Show();
-        }
-    }
+    public void ShowVideoAds ()
+	{
+		if (rewardVideoAds.IsLoaded ()) {
+			rewardVideoAds.Show ();
+		}
+	}
 
-    public void OnRestartGame()
-    {
-        interstitialPause.Destroy();
-        bannerViewMenuPage.Destroy();
-        bannerViewPausePage.Destroy();
-    }
+	public void OnRestartGame ()
+	{
+		interstitialPause.Destroy ();
+		bannerViewMenuPage.Destroy ();
+		bannerViewPausePage.Destroy ();
+	}
 
-    public void ShowRewardedVideo()
-    {
-        //		if (rewardBasedVideoAds.IsLoaded ()) {
-        //			Debug.Log ("Reward Video Load");
-        //			rewardBasedVideoAds.Show ();
-        //		} else {
-        //			Debug.Log ("Video not loaded");
-        //			UIController.Instance.ActiveUI (GameManager.instance.connectionPanel);
-        //			UIAnimationController.Instance.ConnectionPanelAnimation (GameManager.instance.connectionPanel);
-        //		}
+	public void ShowRewardedVideo ()
+	{
+//		if (rewardBasedVideoAds.IsLoaded ()) {
+//			Debug.Log ("Reward Video Load");
+//			rewardBasedVideoAds.Show ();
+//		} else {
+//			Debug.Log ("Video not loaded");
+//			UIController.Instance.ActiveUI (GameManager.instance.connectionPanel);
+//			UIAnimationController.Instance.ConnectionPanelAnimation (GameManager.instance.connectionPanel);
+//		}
 
-    }
+	}
 
 
 }
